@@ -70,6 +70,7 @@ namespace MyTcpServerAndClient
             try
             {
                 myTcpClient.GetStream().Close();
+                myTcpClient.Close();
                 IsConnected = myTcpClient.Connected;
             }
             catch (Exception ex)
@@ -82,8 +83,8 @@ namespace MyTcpServerAndClient
         {
             try
             {
-                var data = Encoding.ASCII.GetBytes(message);
                 var stream = myTcpClient.GetStream();
+                var data = Encoding.ASCII.GetBytes(message);
                 stream.Write(data, 0, data.Length);
             }
             catch (Exception ex)

@@ -49,11 +49,18 @@ namespace MyTcpServerAndClient
             try
             {
                 myTcpListener.Stop();
+                RemoveClient();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
             }
+        }
+        private void RemoveClient()
+        {
+            myTcpClient.GetStream().Close();
+            myTcpClient.Close();
+            myTcpClient = null;
         }
 
         public string ReadMessage()
@@ -86,7 +93,10 @@ namespace MyTcpServerAndClient
                     if (myTcpClient == null)
                     {
                         myTcpClient = myTcpListener.AcceptTcpClient();
-                        IsConnected = true;
+                        if (myTcpClient.Connected)
+                        {
+                            IsConnected = true;
+                        }
                     }
                     else
                     {
@@ -95,7 +105,7 @@ namespace MyTcpServerAndClient
                         if (myTcpClient.Client.Receive(testRecByte, SocketFlags.Peek) == 0)
                         {
                             IsConnected = false;
-                            myTcpClient = null;
+                            RemoveClient();
                         }
                     }
 
