@@ -28,7 +28,7 @@
                 <RadioButton Content="Server" GroupName="ServerOrClient" Checked="RadioButton_Checked"  IsChecked="True" Margin="0,0,10,0"/>
                 <RadioButton Content="Client" GroupName="ServerOrClient" Checked="RadioButton_Checked"/>
             </WrapPanel>
-            <!--<Button Content="Connect" Click="Connect" Margin="10,0" IsEnabled="{c:Binding !IsEnabled,ElementName=DisConnectButton, FalseToVisibility=Collapsed}"/>-->
+            <Button Content="Connect" Click="Connect" Margin="10,0" IsEnabled="{c:Binding !IsEnabled,ElementName=DisConnectButton, FalseToVisibility=Collapsed}"/>
             <!--<Button Content="Disconnect" Click="Disconnect" Name="DisConnectButton" Margin="10,0" IsEnabled="{Binding TcpManager.IsConnected}"/>-->
             <Button Content="Connect" Click="Connect" Margin="10,0" />
             <Button Content="Disconnect" Click="Disconnect" Name="DisConnectButton" Margin="10,0"/>
