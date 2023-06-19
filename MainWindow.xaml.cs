@@ -29,6 +29,7 @@ namespace MyTcpServerAndClient
         public int Port { get; set; } = 6101;
         public string Message { get; set; }
         public string ReceiveMessage { get; set; }
+        public bool IsRunning { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
         public MainWindow()
@@ -38,10 +39,12 @@ namespace MyTcpServerAndClient
         private void Connect(object sender, RoutedEventArgs e)
         {
             TcpManager.Connect();
+            IsRunning = true;
         }
         private void Disconnect(object sender, RoutedEventArgs e)
         {
             TcpManager.Disconnect();
+            IsRunning = false;
         }
 
         private void SendMessage(object sender, RoutedEventArgs e)

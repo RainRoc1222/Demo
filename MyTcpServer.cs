@@ -58,9 +58,12 @@ namespace MyTcpServerAndClient
         }
         private void RemoveClient()
         {
-            myTcpClient.GetStream().Close();
-            myTcpClient.Close();
-            myTcpClient = null;
+            if (myTcpClient != null)
+            {
+                myTcpClient.GetStream().Close();
+                myTcpClient.Close();
+                myTcpClient = null;
+            }
         }
 
         public string ReadMessage()
