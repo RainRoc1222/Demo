@@ -10,8 +10,9 @@ namespace MyTcpServerAndClient
 {
     public class TcpManager : INotifyPropertyChanged
     {
-        public ITcpWrapper myTcp;
+        private ITcpWrapper myTcp;
         public bool IsConnected { get; set; }
+        public bool IsRunning { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
         public TcpManager(ITcpWrapper tcp)
@@ -23,15 +24,26 @@ namespace MyTcpServerAndClient
         private void ConnectionChagned(object sender, bool e)
         {
             IsConnected = e;
+
+            if (sender is MyTcpClient)
+            {
+                IsRunning = e;
+            }
         }
 
         public void Connect()
         {
             myTcp.Connect();
+            IsRunning = true;
         }
         public void Disconnect()
         {
             myTcp.Disconnect();
+            IsRunning = false;
+            if(myTcp is MyTcpClient)
+            {
+                IsConnected = false;
+            }
         }
         public string ReadMessage()
         {
@@ -39,7 +51,10 @@ namespace MyTcpServerAndClient
         }
         public void SendMessage(string message)
         {
-            myTcp.SendMessage(message);
+            if (!string.IsNullOrWhiteSpace(message))
+            {
+                myTcp.SendMessage(message);
+            }
         }
     }
 }

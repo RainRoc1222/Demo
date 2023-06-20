@@ -9,7 +9,6 @@ namespace MyTcpServerAndClient
 {
     public interface ITcpWrapper : INotifyPropertyChanged
     {
-        bool IsConnected { get; set; }
         void Connect();
         void Disconnect();
         void SendMessage(string message);

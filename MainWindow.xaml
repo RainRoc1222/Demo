@@ -29,7 +29,7 @@
                 <RadioButton Content="Client" GroupName="ServerOrClient" Checked="RadioButton_Checked"/>
             </WrapPanel>
             <Button Content="Connect" Click="Connect" Margin="10,0" IsEnabled="{c:Binding !IsEnabled,ElementName=DisConnectButton, FalseToVisibility=Collapsed}"/>
-            <Button Content="Disconnect" Click="Disconnect" Name="DisConnectButton" Margin="10,0" IsEnabled="{Binding IsRunning}"/>
+            <Button Content="Disconnect" Click="Disconnect" Name="DisConnectButton" Margin="10,0" IsEnabled="{Binding TcpManager.IsRunning}"/>
         </WrapPanel>
         <DockPanel Grid.Row="1"  Margin="10">
             <Button DockPanel.Dock="Right"  Margin="10,0" Width="100" Height="50" Content="Clear" Click="ClearMessage"/>

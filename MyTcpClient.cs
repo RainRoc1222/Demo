@@ -20,29 +20,32 @@ namespace MyTcpServerAndClient
 
         public string IpAddress { get; private set; }
         public int Port { get; private set; }
-        public bool IsConnected { get; set; }
-        public EventHandler<bool> ConnectionChagned{get; set;}  
+        public EventHandler<bool> ConnectionChagned { get; set; }
 
         public MyTcpClient(string ip, int port)
         {
             IpAddress = ip;
             Port = port;
         }
-        private void OnIsConnectedChanged()
-        {
-            ConnectionChagned.Invoke(this, IsConnected);
-        }
+
         private void CheckConnection()
         {
             Task.Run(() =>
             {
                 while (true)
                 {
-                    myTcpClient.Client.Poll(0, SelectMode.SelectRead);
-                    byte[] testRecByte = new byte[1];
-                    if (myTcpClient.Client.Receive(testRecByte, SocketFlags.Peek) == 0)
+                    try
                     {
-                        IsConnected = false;
+                        myTcpClient.Client.Poll(0, SelectMode.SelectRead);
+                        byte[] testRecByte = new byte[1];
+                        if (myTcpClient.Client.Receive(testRecByte, SocketFlags.Peek) == 0)
+                        {
+                            ConnectionChagned.Invoke(this, false);
+                        }
+                    }
+                    catch (Exception)
+                    {
+
                     }
 
                     Task.Delay(10);
@@ -56,7 +59,7 @@ namespace MyTcpServerAndClient
             {
                 myTcpClient = new TcpClient();
                 myTcpClient.Connect(IpAddress, Port);
-                IsConnected = myTcpClient.Connected;
+                ConnectionChagned.Invoke(this, myTcpClient.Connected);
                 CheckConnection();
             }
             catch (Exception ex)
@@ -71,7 +74,6 @@ namespace MyTcpServerAndClient
             {
                 myTcpClient.GetStream().Close();
                 myTcpClient.Close();
-                IsConnected = myTcpClient.Connected;
             }
             catch (Exception ex)
             {
@@ -89,7 +91,7 @@ namespace MyTcpServerAndClient
             }
             catch (Exception ex)
             {
-                IsConnected = false;
+                ConnectionChagned.Invoke(this, false);
                 MessageBox.Show(ex.ToString());
             }
         }

@@ -10,13 +10,12 @@ using System.Windows;
 
 namespace MyTcpServerAndClient
 {
-    public class MyTcpServer : ITcpWrapper
+    public class MyTcpServer : ITcpWrapper, INotifyPropertyChanged
     {
         private TcpListener myTcpListener;
         private TcpClient myTcpClient;
         public string IpAddress { get; private set; }
         public int Port { get; private set; }
-        public bool IsConnected { get; set; }
         public EventHandler<bool> ConnectionChagned { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
         public MyTcpServer(string ip, int port)
@@ -25,10 +24,6 @@ namespace MyTcpServerAndClient
             Port = port;
         }
 
-        private void OnIsConnectedChanged()
-        {
-            ConnectionChagned.Invoke(this, IsConnected);
-        }
         public void Connect()
         {
             try
@@ -49,6 +44,7 @@ namespace MyTcpServerAndClient
             try
             {
                 myTcpListener.Stop();
+                ConnectionChagned.Invoke(this, false);
                 RemoveClient();
             }
             catch (Exception ex)
@@ -98,7 +94,7 @@ namespace MyTcpServerAndClient
                         myTcpClient = myTcpListener.AcceptTcpClient();
                         if (myTcpClient.Connected)
                         {
-                            IsConnected = true;
+                            ConnectionChagned?.Invoke(this, true);
                         }
                     }
                     else
@@ -107,7 +103,7 @@ namespace MyTcpServerAndClient
                         byte[] testRecByte = new byte[1];
                         if (myTcpClient.Client.Receive(testRecByte, SocketFlags.Peek) == 0)
                         {
-                            IsConnected = false;
+                            ConnectionChagned?.Invoke(this, false);
                             RemoveClient();
                         }
                     }
