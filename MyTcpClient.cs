@@ -40,7 +40,7 @@ namespace MyTcpServerAndClient
                         byte[] testRecByte = new byte[1];
                         if (myTcpClient.Client.Receive(testRecByte, SocketFlags.Peek) == 0)
                         {
-                            ConnectionChagned.Invoke(this, false);
+                            Disconnect();
                         }
                     }
                     catch (Exception)
@@ -74,6 +74,7 @@ namespace MyTcpServerAndClient
             {
                 myTcpClient.GetStream().Close();
                 myTcpClient.Close();
+                ConnectionChagned.Invoke(this, false);
             }
             catch (Exception ex)
             {
