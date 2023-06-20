@@ -10,13 +10,13 @@ using System.Windows;
 
 namespace MyTcpServerAndClient
 {
-    public class MyTcpServer : ITcpWrapper, INotifyPropertyChanged
+    public class MyTcpServer : ITcpWrapper
     {
         private TcpListener myTcpListener;
         private TcpClient myTcpClient;
         public string IpAddress { get; private set; }
         public int Port { get; private set; }
-        public EventHandler<bool> ConnectionChagned { get; set; }
+        public event EventHandler<bool> ConnectionChagned;
         public event PropertyChangedEventHandler PropertyChanged;
         public MyTcpServer(string ip, int port)
         {

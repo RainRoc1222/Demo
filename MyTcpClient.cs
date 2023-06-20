@@ -20,7 +20,7 @@ namespace MyTcpServerAndClient
 
         public string IpAddress { get; private set; }
         public int Port { get; private set; }
-        public EventHandler<bool> ConnectionChagned { get; set; }
+        public event EventHandler<bool> ConnectionChagned;
 
         public MyTcpClient(string ip, int port)
         {

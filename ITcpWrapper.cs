@@ -13,6 +13,6 @@ namespace MyTcpServerAndClient
         void Disconnect();
         void SendMessage(string message);
         string ReadMessage();
-        EventHandler<bool>ConnectionChagned { get; set; }
+        event EventHandler<bool> ConnectionChagned;
     }
 }
