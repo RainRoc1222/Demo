@@ -28,6 +28,15 @@ namespace MyTcpServerAndClient
             Port = port;
         }
 
+        private void Check()
+        {
+            myTcpClient.Client.Poll(0, SelectMode.SelectRead);
+            byte[] testRecByte = new byte[1];
+            if (myTcpClient.Client.Receive(testRecByte, SocketFlags.Peek) == 0)
+            {
+                Disconnect();
+            }
+        }
         private void CheckConnection()
         {
             Task.Run(() =>
@@ -36,16 +45,10 @@ namespace MyTcpServerAndClient
                 {
                     try
                     {
-                        myTcpClient.Client.Poll(0, SelectMode.SelectRead);
-                        byte[] testRecByte = new byte[1];
-                        if (myTcpClient.Client.Receive(testRecByte, SocketFlags.Peek) == 0)
-                        {
-                            Disconnect();
-                        }
+                        Check();
                     }
                     catch (Exception)
                     {
-
                     }
 
                     Task.Delay(10);

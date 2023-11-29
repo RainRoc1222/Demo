@@ -1,64 +1,63 @@
 ﻿<Window x:Class="MyTcpServerAndClient.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MyTcpServerAndClient"
-        xmlns:c="clr-namespace:CalcBinding;assembly=CalcBinding"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:calcBinding="clr-namespace:CalcBinding;assembly=CalcBinding"
         mc:Ignorable="d"
-        Loaded="Window_Loaded"
+        Loaded="MainWindow_OnLoaded"
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <WrapPanel Margin="10">
-            <WrapPanel>
-                <TextBlock Text="IP: "/>
-                <TextBox Text="{Binding IpAddress}" Width="150"/>
-            </WrapPanel>
-            <WrapPanel Margin="10,0">
-                <TextBlock Text="Port: "/>
-                <TextBox Text="{Binding Port}" Width="150"/>
-            </WrapPanel>
-            <WrapPanel Margin="0,2,0,0">
-                <RadioButton Content="Server" GroupName="ServerOrClient" Checked="RadioButton_Checked"  IsChecked="True" Margin="0,0,10,0"/>
-                <RadioButton Content="Client" GroupName="ServerOrClient" Checked="RadioButton_Checked"/>
-            </WrapPanel>
-            <Button Content="Connect" Click="Connect" Margin="10,0" IsEnabled="{c:Binding !IsEnabled,ElementName=DisConnectButton, FalseToVisibility=Collapsed}"/>
-            <Button Content="Disconnect" Click="Disconnect" Name="DisConnectButton" Margin="10,0" IsEnabled="{Binding TcpManager.IsRunning}"/>
-        </WrapPanel>
-        <DockPanel Grid.Row="1"  Margin="10">
-            <Button DockPanel.Dock="Right"  Margin="10,0" Width="100" Height="50" Content="Clear" Click="ClearMessage"/>
-            <DockPanel>
-                <WrapPanel DockPanel.Dock="Top">
-                    <TextBlock Text="連線狀態:"/>
-                    <TextBlock Text="{Binding TcpManager.IsConnected}">
-                        <TextBlock.Style>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="Foreground" Value="Red"/>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding TcpManager.IsConnected}" Value="True">
-                                        <Setter Property="Foreground" Value="Green"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
-                </WrapPanel>
-                <TextBlock DockPanel.Dock="Top" Text="收到訊息:"/>
-                <TextBox DockPanel.Dock="Bottom"  Text="{Binding ReceiveMessage}"/>
-            </DockPanel>
-        </DockPanel>
-        <DockPanel Grid.Row="2" Margin="10">
-            <Button DockPanel.Dock="Right" Margin="10,0" Width="100" Height="50" Content="Send" Click="SendMessage" IsEnabled="{Binding TcpManager.IsConnected}"/>
-            <DockPanel >
-                <TextBlock DockPanel.Dock="Top" Text="送出訊息:"/>
-                <TextBox DockPanel.Dock="Bottom" Text="{Binding Message}" />
-            </DockPanel>
-        </DockPanel>
-    </Grid>
+    <materialDesign:DialogHost>
+        <materialDesign:DrawerHost IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
+            <materialDesign:DrawerHost.LeftDrawerContent>
+                <DockPanel MinWidth="212">
+                    <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}"
+                                DockPanel.Dock="Top"
+                                HorizontalAlignment="Right" Margin="16"
+                                IsChecked="{Binding ElementName=MenuToggleButton, Path=IsChecked, Mode=TwoWay}" />
+                    <ListBox ItemsSource="{Binding PageItems}" SelectedIndex="0"
+                           PreviewMouseLeftButtonDown="ListBox_PreviewMouseLeftButtonDown"
+                           SelectedItem="{Binding SelectedPageItem, Mode=TwoWay}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}" Margin="32 0 32 0" FontWeight="Bold" FontSize="24"
+                                         VerticalAlignment="Center" />
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </DockPanel>
+            </materialDesign:DrawerHost.LeftDrawerContent>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <materialDesign:ColorZone Grid.Row="0" Padding="0" materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                        Mode="PrimaryMid" DockPanel.Dock="Top">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" Orientation="Horizontal">
+                            <ToggleButton x:Name="MenuToggleButton" HorizontalAlignment="Left"
+                                        Style="{StaticResource MaterialDesignHamburgerToggleButton}" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right"
+                                  TextElement.FontWeight="Bold">
+                            <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges" StaysOpen="False"
+                                                   Margin="20,0,0,0">
+                            </materialDesign:PopupBox>
+                        </StackPanel>
+                    </Grid>
+                </materialDesign:ColorZone>
+                <Grid Grid.Row="1">
+                    <ContentControl Content="{Binding SelectedPageItem.Content}"
+                                  Margin="10,10"
+                                  Visibility="{calcBinding:Binding !IsChecked,ElementName=MenuToggleButton, FalseToVisibility=Collapsed}" />
+                </Grid>
+            </Grid>
+        </materialDesign:DrawerHost>
+    </materialDesign:DialogHost>
 </Window>

@@ -1,21 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Net;
-using System.Net.Sockets;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace MyTcpServerAndClient
 {
@@ -24,78 +12,49 @@ namespace MyTcpServerAndClient
     /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
-        public TcpManager TcpManager { get; set; }
-        public string IpAddress { get; set; } = "127.0.0.1";
-        public int Port { get; set; } = 6101;
-        public string Message { get; set; }
-        public string ReceiveMessage { get; set; }
+        public ObservableCollection<PageItem> PageItems { get; set; }
+
+        public PageItem SelectedPageItem { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
         public MainWindow()
         {
-            InitializeComponent();
-        }
-        private void Connect(object sender, RoutedEventArgs e)
-        {
-            TcpManager.Connect();
-        }
-        private void Disconnect(object sender, RoutedEventArgs e)
-        {
-            TcpManager.Disconnect();
+            InitializePageItems();
         }
 
-        private void SendMessage(object sender, RoutedEventArgs e)
+        private void InitializePageItems()
         {
-            TcpManager.SendMessage(Message);
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            Task.Run(() =>
+            PageItems = new ObservableCollection<PageItem>()
             {
-                while (true)
+                new PageItem
                 {
-                    if (TcpManager != null && TcpManager.IsConnected)
-                    {
-                        try
-                        {
-                            ReceiveMessage += TcpManager.ReadMessage();
-                        }
-                        catch (Exception)
-                        {
-                        }
-                    }
-                    Task.Delay(10);
+                    Name = "Main",
+                    Content = new TcpControl(),
+                },
+                new PageItem
+                {
+                    Name = "Settings",
+                    Content = new SystemSettingControl(),
                 }
-            });
+            };
         }
 
-
-        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-            ChangeTcpManager((RadioButton)sender);
+            SelectedPageItem = PageItems.FirstOrDefault();
         }
 
-        private void ChangeTcpManager(RadioButton ratioButton)
+        private void ListBox_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (TcpManager != null && TcpManager.IsConnected)
+            var listBoxItem = ItemsControl.ContainerFromElement(sender as ListBox, (DependencyObject)e.OriginalSource) as ListBoxItem;
+            var content = listBoxItem?.Content;
+            if (content is PageItem pageItem && content != SelectedPageItem)
             {
-                TcpManager.Disconnect();
+                SelectedPageItem = pageItem;
             }
-            switch (ratioButton.Content)
-            {
-                case "Server":
-                    TcpManager = new TcpManager(new MyTcpServer(IpAddress, Port));
-                    break;
-                default:
-                    TcpManager = new TcpManager(new MyTcpClient(IpAddress, Port));
-                    break;
-            }
-        }
 
-        private void ClearMessage(object sender, RoutedEventArgs e)
-        {
-            ReceiveMessage = string.Empty;
+            MenuToggleButton.IsChecked = false;
+
         }
     }
 }
