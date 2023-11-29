@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyTcpServerAndClient
+namespace CommunicationProtocol.WpfApp
 {
     public interface ITcpWrapper : INotifyPropertyChanged
     {

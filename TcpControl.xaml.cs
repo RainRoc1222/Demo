@@ -15,7 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MyTcpServerAndClient
+namespace CommunicationProtocol.WpfApp
 {
     /// <summary>
     /// TcpControl.xaml 的互動邏輯
@@ -31,7 +31,6 @@ namespace MyTcpServerAndClient
         public TcpControl()
         {
             InitializeComponent();
-            InitializeIPAddress();
             StartReceiveMessage();
         }
 
@@ -46,7 +45,7 @@ namespace MyTcpServerAndClient
 
         private void SendMessage(object sender, RoutedEventArgs e)
         {
-            var message = $"{DateTime.Now:yyyy/MM/dd HH:mm:ss}  OUT: {Message}{Environment.NewLine}";
+            var message = $"{DateTime.Now:yyyy/MM/dd HH:mm:ss}     OUT:    {Message}{Environment.NewLine}{Environment.NewLine}";
             TextLogs.AppendText(message);
             TextLogs.ScrollToEnd();
             TcpManager.SendMessage(Message);
@@ -76,7 +75,7 @@ namespace MyTcpServerAndClient
 
         private void UpdateUI()
         {
-            var message = $"{DateTime.Now:yyyy/MM/dd HH:mm:ss}  IN:     {TcpManager.ReadMessage()}{Environment.NewLine}";
+            var message = $"{DateTime.Now:yyyy/MM/dd HH:mm:ss}     IN:        {TcpManager.ReadMessage()}{Environment.NewLine}";
 
             Dispatcher.InvokeAsync(new Action(() =>
             {
@@ -99,6 +98,9 @@ namespace MyTcpServerAndClient
         private void ChangeTcpManager(RadioButton ratioButton)
         {
             if (TcpManager != null && TcpManager.IsConnected) TcpManager.Disconnect();
+
+            InitializeIPAddress();
+
             switch (ratioButton.Content)
             {
                 case "Server":
@@ -117,6 +119,11 @@ namespace MyTcpServerAndClient
         private void ClearMessage(object sender, RoutedEventArgs e)
         {
             TextLogs.Clear();
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            InitializeIPAddress();
         }
     }
 }

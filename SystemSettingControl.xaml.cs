@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MyTcpServerAndClient
+namespace CommunicationProtocol.WpfApp
 {
     /// <summary>
     /// SystemSettingControl.xaml 的互動邏輯

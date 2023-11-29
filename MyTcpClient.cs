@@ -10,7 +10,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace MyTcpServerAndClient
+namespace CommunicationProtocol.WpfApp
 {
     public class MyTcpClient : ITcpWrapper
     {

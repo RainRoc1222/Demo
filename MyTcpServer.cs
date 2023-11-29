@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace MyTcpServerAndClient
+namespace CommunicationProtocol.WpfApp
 {
     public class MyTcpServer : ITcpWrapper
     {

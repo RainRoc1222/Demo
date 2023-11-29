@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using Newtonsoft.Json;
 
-namespace MyTcpServerAndClient
+namespace CommunicationProtocol.WpfApp
 {
     public class AppSettingsMgt
     {

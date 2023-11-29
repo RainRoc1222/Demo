@@ -5,7 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace MyTcpServerAndClient
+namespace CommunicationProtocol.WpfApp
 {
     /// <summary>
     /// MainWindow.xaml 的互動邏輯
