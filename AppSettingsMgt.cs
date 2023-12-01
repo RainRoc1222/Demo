@@ -33,8 +33,11 @@ namespace CommunicationProtocol.WpfApp
             {
                 AppSettings = new AppSettings()
                 {
-                    IPAddress = "127.0.0.1",
-                    Port = 6101
+                    TcpSettings = new TcpSettings()
+                    {
+                        IPAddress = "127.0.0.1",
+                        Port = 6101
+                    }
                 };
                 Save();
             }

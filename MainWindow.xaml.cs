@@ -28,14 +28,19 @@ namespace CommunicationProtocol.WpfApp
             {
                 new PageItem
                 {
-                    Name = "Main",
+                    Name = "TCP/IP",
                     Content = new TcpControl(),
                 },
                 new PageItem
                 {
-                    Name = "Settings",
+                    Name = "SerailPort",
+                    Content = new SerialPortControl(),
+                },
+                new PageItem
+                {
+                    Name = "SystemSetting",
                     Content = new SystemSettingControl(),
-                }
+                },
             };
         }
 
