@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommunicationProtocol.WpfApp.Tcp;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -10,7 +11,7 @@ using System.Windows;
 
 namespace CommunicationProtocol.WpfApp
 {
-    public class MyTcpServer : ITcpWrapper
+    public class MyTcpServer :ITcpWrapper
     {
         private TcpListener myTcpListener;
         private TcpClient myTcpClient;
@@ -123,5 +124,6 @@ namespace CommunicationProtocol.WpfApp
                 }
             });
         }
+
     }
 }

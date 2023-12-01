@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommunicationProtocol.WpfApp.Tcp;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -8,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace CommunicationProtocol.WpfApp
 {
-    public class TcpManager : INotifyPropertyChanged
+    public class TcpController : INotifyPropertyChanged
     {
         private ITcpWrapper myTcp;
         public bool IsConnected { get; set; }
         public bool IsRunning { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        public TcpManager(ITcpWrapper tcp)
+        public TcpController(ITcpWrapper tcp)
         {
             myTcp = tcp;
             myTcp.ConnectionChagned += ConnectionChagned;

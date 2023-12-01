@@ -9,7 +9,7 @@
              DataContext="{Binding RelativeSource={RelativeSource Self}}"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <GroupBox>
+        <GroupBox Header="Tcp Server / Client" FontSize="15">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
@@ -17,17 +17,34 @@
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
                 <DockPanel Margin="10">
+                    <WrapPanel DockPanel.Dock="Bottom">
+                        <TextBlock Text="Tcp 連線狀態 :" Margin="0,0,10,0"/>
+                        <TextBlock >
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Foreground" Value="Red"/>
+                                    <Setter Property="Text" Value="未連線"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding TcpManager.IsConnected}" Value="True">
+                                            <Setter Property="Foreground" Value="Green"/>
+                                            <Setter Property="Text" Value="已連線"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </WrapPanel>
                     <WrapPanel>
-                        <TextBlock Text="IP: " Margin="0,0,5,0"/>
-                        <TextBlock Text="{Binding IpAddress}" Width="150"/>
+                        <TextBlock Text="IP : " Margin="0,0,5,0"/>
+                        <TextBlock Text="{Binding IPAddress}" Width="150"/>
                     </WrapPanel>
                     <WrapPanel Margin="10,0">
-                        <TextBlock Text="Port: " Margin="0,0,5,0"/>
+                        <TextBlock Text="Port : " Margin="0,0,5,0"/>
                         <TextBlock Text="{Binding Port}"  Width="150"/>
                     </WrapPanel>
                     <WrapPanel DockPanel.Dock="Right">
-                        <Button Content="Connect" Click="Connect" Margin="10,0" IsEnabled="{c:Binding !IsEnabled,ElementName=DisConnectButton, FalseToVisibility=Collapsed}"/>
-                        <Button Content="Disconnect" Click="Disconnect" Name="DisConnectButton" Margin="10,0" IsEnabled="{Binding TcpManager.IsRunning}"/>
+                        <Button Content="Connect" Click="Connect" Margin="10,0" IsEnabled="{c:Binding !IsEnabled,ElementName=DisconnectButton, FalseToVisibility=Collapsed}"/>
+                        <Button Content="Disconnect" Click="Disconnect" Name="DisconnectButton" Margin="10,0" IsEnabled="{Binding TcpManager.IsRunning}"/>
                     </WrapPanel>
                     <WrapPanel HorizontalAlignment="Center" Margin="0,2,0,0">
                         <RadioButton Content="Server" GroupName="ServerOrClient" Checked="RadioButton_Checked"  IsChecked="True" Margin="0,0,10,0"/>
@@ -37,21 +54,7 @@
                 <DockPanel Grid.Row="1"  Margin="10">
                     <Button DockPanel.Dock="Right" VerticalAlignment="Bottom" Margin="10,0" Width="100" Height="50" Content="Clear" Click="ClearMessage"/>
                     <DockPanel>
-                        <WrapPanel DockPanel.Dock="Top">
-                            <TextBlock Text="連線狀態:" Margin="0,0,0,10"/>
-                            <TextBlock Text="{Binding TcpManager.IsConnected}">
-                                <TextBlock.Style>
-                                    <Style TargetType="TextBlock">
-                                        <Setter Property="Foreground" Value="Red"/>
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding TcpManager.IsConnected}" Value="True">
-                                                <Setter Property="Foreground" Value="Green"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </TextBlock.Style>
-                            </TextBlock>
-                        </WrapPanel>
+                      
                         <TextBox DockPanel.Dock="Bottom" x:Name="TextLogs" Style="{x:Null}"  VerticalScrollBarVisibility="Auto" />
                     </DockPanel>
                 </DockPanel>

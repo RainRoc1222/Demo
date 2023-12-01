@@ -22,8 +22,8 @@ namespace CommunicationProtocol.WpfApp
     /// </summary>
     public partial class TcpControl : UserControl, INotifyPropertyChanged
     {
-        public TcpManager TcpManager { get; set; }
-        public string IpAddress { get; set; }
+        public TcpController TcpManager { get; set; }
+        public string IPAddress { get; set; }
         public int Port { get; set; }
         public string Message { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
@@ -45,11 +45,14 @@ namespace CommunicationProtocol.WpfApp
 
         private void SendMessage(object sender, RoutedEventArgs e)
         {
-            var message = $"{DateTime.Now:yyyy/MM/dd HH:mm:ss}     OUT:    {Message}{Environment.NewLine}{Environment.NewLine}";
-            TextLogs.AppendText(message);
-            TextLogs.ScrollToEnd();
-            TcpManager.SendMessage(Message);
-            Message = string.Empty;
+            if (!string.IsNullOrWhiteSpace(Message))
+            {
+                var message = $"{DateTime.Now:yyyy/MM/dd HH:mm:ss}     OUT:    {Message}{Environment.NewLine}{Environment.NewLine}";
+                TextLogs.AppendText(message);
+                TextLogs.ScrollToEnd();
+                TcpManager.SendMessage(Message);
+                Message = string.Empty;
+            }
         }
 
         private void StartReceiveMessage()
@@ -87,8 +90,6 @@ namespace CommunicationProtocol.WpfApp
                 TextLogs.AppendText(message);
                 TextLogs.ScrollToEnd();
             }));
-
-
         }
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
@@ -104,17 +105,17 @@ namespace CommunicationProtocol.WpfApp
             switch (ratioButton.Content)
             {
                 case "Server":
-                    TcpManager = new TcpManager(new MyTcpServer(IpAddress, Port));
+                    TcpManager = new TcpController(new MyTcpServer(IPAddress, Port));
                     break;
                 default:
-                    TcpManager = new TcpManager(new MyTcpClient(IpAddress, Port));
+                    TcpManager = new TcpController(new MyTcpClient(IPAddress, Port));
                     break;
             }
         }
         private void InitializeIPAddress()
         {
-            IpAddress = AppSettingsMgt.AppSettings.IPAddress;
-            Port = AppSettingsMgt.AppSettings.Port;
+            IPAddress = AppSettingsMgt.AppSettings.TcpSettings.IPAddress;
+            Port = AppSettingsMgt.AppSettings.TcpSettings.Port;
         }
         private void ClearMessage(object sender, RoutedEventArgs e)
         {

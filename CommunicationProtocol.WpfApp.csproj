@@ -44,6 +44,9 @@
     <Reference Include="DynamicExpresso.Core, Version=2.3.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DynamicExpresso.Core.2.3.1\lib\net461\DynamicExpresso.Core.dll</HintPath>
     </Reference>
+    <Reference Include="GodSharp.SerialPort, Version=1.2.0.6, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\GodSharp.SerialPort.1.2.0.6\lib\net47\GodSharp.SerialPort.dll</HintPath>
+    </Reference>
     <Reference Include="MaterialDesignColors, Version=2.1.1.0, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignColors.2.1.1\lib\net462\MaterialDesignColors.dll</HintPath>
     </Reference>
@@ -86,17 +89,21 @@
     </ApplicationDefinition>
     <Compile Include="AppSettings.cs" />
     <Compile Include="AppSettingsMgt.cs" />
-    <Compile Include="ITcpWrapper.cs" />
-    <Compile Include="MyTcpServer.cs" />
+    <Compile Include="Serial Port\SerialPortController.cs" />
+    <Compile Include="Tcp\ITcpWrapper.cs" />
+    <Compile Include="Tcp\MyTcpServer.cs" />
     <Compile Include="PageItem.cs" />
+    <Compile Include="SerialPortControl.xaml.cs">
+      <DependentUpon>SerialPortControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SystemSettingControl.xaml.cs">
       <DependentUpon>SystemSettingControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="TcpControl.xaml.cs">
       <DependentUpon>TcpControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TcpManager.cs" />
-    <Compile Include="MyTcpClient.cs" />
+    <Compile Include="Tcp\TcpController.cs" />
+    <Compile Include="Tcp\MyTcpClient.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -109,6 +116,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="SerialPortControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SystemSettingControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommunicationProtocol.WpfApp.Tcp;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -12,7 +13,7 @@ using System.Windows;
 
 namespace CommunicationProtocol.WpfApp
 {
-    public class MyTcpClient : ITcpWrapper
+    public class MyTcpClient:ITcpWrapper
     {
         public TcpClient myTcpClient;
 
