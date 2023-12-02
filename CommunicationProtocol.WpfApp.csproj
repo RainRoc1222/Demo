@@ -89,6 +89,10 @@
     </ApplicationDefinition>
     <Compile Include="AppSettings.cs" />
     <Compile Include="AppSettingsMgt.cs" />
+    <Compile Include="ModbusControl.xaml.cs">
+      <DependentUpon>ModbusControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modbus\ModbusController.cs" />
     <Compile Include="Serial Port\SerialPortController.cs" />
     <Compile Include="Tcp\ITcpWrapper.cs" />
     <Compile Include="Tcp\MyTcpServer.cs" />
@@ -116,6 +120,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ModbusControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SerialPortControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
