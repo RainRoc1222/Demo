@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,7 +34,6 @@ namespace CommunicationProtocol.WpfApp
         {
             InitializeComponent();
             InputSignals = new int[64];
-            ModbusController = new ModbusController();
         }
 
         private void Save_Click(object sender, RoutedEventArgs e)
@@ -54,17 +54,33 @@ namespace CommunicationProtocol.WpfApp
 
         private void Disconnect(object sender, RoutedEventArgs e)
         {
-
+            ModbusController.Disconnect();
         }
 
         private void Connect(object sender, RoutedEventArgs e)
         {
-
+            ModbusController.Connect();
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            SelectedSettings = AppSettingsMgt.AppSettings.ModbusSettings;
+            try
+            {
+                SelectedSettings = AppSettingsMgt.AppSettings.ModbusSettings;
+                var serialPort = new SerialPort()
+                {
+                    PortName = SelectedSettings.PortName,
+                    BaudRate = SelectedSettings.BaudRate,
+                    Parity = SelectedSettings.Parity,
+                    StopBits = SelectedSettings.StopBits,
+                    DataBits = SelectedSettings.DataBits,
+                };
+                ModbusController = new ModbusController(serialPort, 1);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
     }
 }

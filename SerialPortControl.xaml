@@ -5,50 +5,134 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CommunicationProtocol.WpfApp" xmlns:c="clr-namespace:CalcBinding;assembly=CalcBinding"
              mc:Ignorable="d" 
+             Loaded="UserControl_Loaded"
              DataContext="{Binding RelativeSource={RelativeSource Self}}"
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="1000" d:DesignWidth="1200">
     <Grid>
-        <GroupBox Header="Serial Port" FontSize="15">
+        <GroupBox Header="Serial Port"  FontSize="20">
             <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition/>
-                    <RowDefinition Height="auto"/>
-                </Grid.RowDefinitions>
-                <DockPanel Margin="10">
-                    <WrapPanel DockPanel.Dock="Left">
-                        <TextBlock Text="連線狀態 :" Margin="0,0,10,0"/>
-                        <TextBlock >
-                            <TextBlock.Style>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="Foreground" Value="Red"/>
-                                    <Setter Property="Text" Value="未連線"/>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding SerialPortController.IsConnected}" Value="True">
-                                            <Setter Property="Foreground" Value="Green"/>
-                                            <Setter Property="Text" Value="已連線"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBlock.Style>
-                        </TextBlock>
-                    </WrapPanel>
-                    <WrapPanel DockPanel.Dock="Right" HorizontalAlignment="Right">
-                        <Button Content="Connect" Click="Connect" Margin="10,0" IsEnabled="{c:Binding !IsEnabled,ElementName=DisconnectButton, FalseToVisibility=Collapsed}"/>
-                        <Button Content="Disconnect" Click="Disconnect" Margin="10,0" IsEnabled="{Binding SerialPortController.IsConnected}"/>
-                    </WrapPanel>
-                   
-                </DockPanel>
-                <DockPanel Grid.Row="1"  Margin="10">
-                    <Button DockPanel.Dock="Right" VerticalAlignment="Bottom" Margin="10,0" Width="100" Height="50" Content="Clear" Click="ClearMessage"/>
-                    <DockPanel>
-                        <TextBox DockPanel.Dock="Bottom" x:Name="TextLogs" Style="{x:Null}"  VerticalScrollBarVisibility="Auto" />
+                <Grid.Resources>
+                    <Style TargetType="GroupBox" BasedOn="{StaticResource MaterialDesignGroupBox}">
+                        <Setter Property="Margin" Value="5,0,5,0"/>
+                    </Style>
+                </Grid.Resources>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <GroupBox Header="Settings"  FontSize="20">
+                    <StackPanel Margin="0,0,50,0">
+                        <StackPanel.Resources>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Width" Value="150"/>
+                                <Setter Property="TextAlignment" Value="Right"/>
+                            </Style>
+                            <Style TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignComboBox}">
+                                <Setter Property="Width" Value="150"/>
+                            </Style>
+                            <Style TargetType="WrapPanel">
+                                <Setter Property="Margin" Value="0,10,0,0"/>
+                            </Style>
+                        </StackPanel.Resources>
+                        <WrapPanel>
+                            <TextBlock Text="PortName : " Margin="0,0,5,0"/>
+                            <ComboBox ItemsSource="{Binding CollectionSettings.PortNameCollection}" SelectedItem="{Binding SelectedSettings.PortName}" >
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding }" HorizontalAlignment="Center"/>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </WrapPanel>
+                        <WrapPanel>
+                            <TextBlock Text="BaudRate : " Margin="0,0,5,0"/>
+                            <ComboBox ItemsSource="{Binding CollectionSettings.BaudRateCollection}" SelectedItem="{Binding SelectedSettings.BaudRate}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding }" HorizontalAlignment="Center"/>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </WrapPanel>
+                        <WrapPanel>
+                            <TextBlock Text="Parity : " Margin="0,0,5,0"/>
+                            <ComboBox ItemsSource="{Binding CollectionSettings.ParityCollection}"  SelectedItem="{Binding SelectedSettings.Parity}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding }" HorizontalAlignment="Center"/>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </WrapPanel>
+                        <WrapPanel >
+                            <TextBlock Text="DataBits : " Margin="0,0,5,0"/>
+                            <ComboBox ItemsSource="{Binding CollectionSettings.DataBitsCollection}" SelectedItem="{Binding SelectedSettings.DataBits}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding }" HorizontalAlignment="Center"/>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </WrapPanel>
+                        <WrapPanel>
+                            <TextBlock Text="StopBits : " Margin="0,0,5,0"/>
+                            <ComboBox ItemsSource="{Binding CollectionSettings.StopBitsCollection}" SelectedItem="{Binding SelectedSettings.StopBits}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding }" HorizontalAlignment="Center"/>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </WrapPanel>
+                        <WrapPanel>
+                            <TextBlock Text="ReadTimeout : " Margin="0,0,5,0"/>
+                            <TextBox  Text="{Binding SelectedSettings.ReadTimeout}" Width="150" TextAlignment="Center"  Padding="0,10,20,0"/>
+                        </WrapPanel>
+                        <Button Content="Save" Click="Save_Click" 
+           Margin="0,50,0,0"
+           Width="100"/>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Header="Data" Grid.Column="1" FontSize="20" >
+                    <DockPanel >
+                        <WrapPanel DockPanel.Dock="Top">
+                            <TextBlock Text="連線狀態 :" Margin="0,0,10,10"/>
+                            <TextBlock >
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Foreground" Value="Red"/>
+                                        <Setter Property="Text" Value="未連線"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding SerialPortController.IsConnected}" Value="True">
+                                                <Setter Property="Foreground" Value="Green"/>
+                                                <Setter Property="Text" Value="已連線"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </WrapPanel>
+                        <TextBox  Style="{x:Null}"  Height="40"  DockPanel.Dock="Bottom"  Text="{Binding Message}" VerticalScrollBarVisibility="Auto" Margin="0,10,0,0"/>
+                        <TextBox  x:Name="TextLogs" Style="{x:Null}"  VerticalScrollBarVisibility="Auto"/>
                     </DockPanel>
-                </DockPanel>
-                <DockPanel Grid.Row="2" Margin="10">
-                    <Button DockPanel.Dock="Right" Margin="10,0" Width="100" Height="50" Content="Send" Click="SendMessage" IsEnabled="{Binding SerialPortController.IsConnected}"/>
-                    <TextBox Style="{x:Null}"  DockPanel.Dock="Bottom"  Text="{Binding Message}" VerticalScrollBarVisibility="Auto"/>
-                </DockPanel>
+                </GroupBox>
+                <UniformGrid Rows="2" Grid.Column="2">
+                    <UniformGrid.Resources>
+                        <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+                            <Setter Property="Width" Value="120"/>
+                            <Setter Property="Height" Value="50"/>
+                        </Style>
+                    </UniformGrid.Resources>
+                    <StackPanel VerticalAlignment="Top">
+                        <Button Content="Connect" Click="Connect" IsEnabled="{c:Binding !IsEnabled,ElementName=DisconnectButton, FalseToVisibility=Collapsed}"/>
+                        <Button Content="Disconnect" Click="Disconnect" Margin="0,15,0,0" IsEnabled="{Binding SerialPortController.IsConnected}"/>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Bottom">
+                        <Button DockPanel.Dock="Right" VerticalAlignment="Bottom" Margin="0,0,0,15" Content="Clear" Click="ClearMessage"/>
+                        <Button DockPanel.Dock="Right" Margin="10,0"  Content="Send" Click="SendMessage" IsEnabled="{Binding SerialPortController.IsConnected}"/>
+                    </StackPanel>
+                </UniformGrid>
             </Grid>
         </GroupBox>
     </Grid>

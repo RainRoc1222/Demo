@@ -26,15 +26,14 @@ namespace CommunicationProtocol.WpfApp
     {
         public string Message { get; set; }
         public string ReceiveMessage { get; set; }
+        public SerialPortSettings SelectedSettings { get; set; }
+        public CollectionSettings CollectionSettings => CollectionSettings.Instance;
         public SerialPortController SerialPortController { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
 
         public SerialPortControl()
         {
             InitializeComponent();
-            var settings = AppSettingsMgt.AppSettings.SerialPortSettings;
-            SerialPortController = new SerialPortController(settings);
-            SerialPortController.ReceiveData += SerialPortController_ReceiveData;
         }
 
         private void SerialPortController_ReceiveData(object sender, byte[] e)
@@ -83,6 +82,20 @@ namespace CommunicationProtocol.WpfApp
         private void ClearMessage(object sender, RoutedEventArgs e)
         {
             TextLogs.Clear();
+        }
+
+        private void Save_Click(object sender, RoutedEventArgs e)
+        {
+            AppSettingsMgt.AppSettings.SerialPortSettings = SelectedSettings;
+            AppSettingsMgt.Save();
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            SelectedSettings = AppSettingsMgt.AppSettings.SerialPortSettings;
+            SerialPortController = new SerialPortController(SelectedSettings);
+            SerialPortController.ReceiveData -= SerialPortController_ReceiveData;
+            SerialPortController.ReceiveData += SerialPortController_ReceiveData;
         }
     }
 }

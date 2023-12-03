@@ -16,7 +16,7 @@
                     <RowDefinition/>
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
-                <DockPanel Margin="10">
+                    <DockPanel Margin="10">
                     <WrapPanel DockPanel.Dock="Bottom">
                         <TextBlock Text="Tcp 連線狀態 :" Margin="0,0,10,0"/>
                         <TextBlock >
@@ -36,11 +36,11 @@
                     </WrapPanel>
                     <WrapPanel>
                         <TextBlock Text="IP : " Margin="0,0,5,0"/>
-                        <TextBlock Text="{Binding IPAddress}" Width="150"/>
+                        <TextBox Text="{Binding IPAddress}" Width="150"/>
                     </WrapPanel>
                     <WrapPanel Margin="10,0">
                         <TextBlock Text="Port : " Margin="0,0,5,0"/>
-                        <TextBlock Text="{Binding Port}"  Width="150"/>
+                        <TextBox Text="{Binding Port}"  Width="150"/>
                     </WrapPanel>
                     <WrapPanel DockPanel.Dock="Right">
                         <Button Content="Connect" Click="Connect" Margin="10,0" IsEnabled="{c:Binding !IsEnabled,ElementName=DisconnectButton, FalseToVisibility=Collapsed}"/>

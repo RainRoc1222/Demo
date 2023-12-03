@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Loaded="MainWindow_OnLoaded"
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
-        Title="MainWindow" Height="800" Width="1200">
+        Title="MainWindow" Height="1000" Width="1200">
     <materialDesign:DialogHost>
         <materialDesign:DrawerHost IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
             <materialDesign:DrawerHost.LeftDrawerContent>
