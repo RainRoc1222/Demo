@@ -1,7 +1,9 @@
-﻿using CommunicationProtocol.WpfApp.Tcp;
+﻿using CommunicationProtocol.WpfApp.Properties;
+using CommunicationProtocol.WpfApp.Tcp;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -19,10 +21,10 @@ namespace CommunicationProtocol.WpfApp
         public int Port { get; private set; }
         public event EventHandler<bool> ConnectionChagned;
         public event PropertyChangedEventHandler PropertyChanged;
-        public MyTcpServer(string ip, int port)
+        public MyTcpServer(TcpSettings settings)
         {
-            IpAddress = ip;
-            Port = port;
+            IpAddress = settings.IPAddress;
+            Port = settings.Port;
         }
 
         public void Connect()

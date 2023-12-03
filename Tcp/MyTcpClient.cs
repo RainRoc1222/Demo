@@ -13,7 +13,7 @@ using System.Windows;
 
 namespace CommunicationProtocol.WpfApp
 {
-    public class MyTcpClient:ITcpWrapper
+    public class MyTcpClient : ITcpWrapper
     {
         public TcpClient myTcpClient;
 
@@ -23,10 +23,10 @@ namespace CommunicationProtocol.WpfApp
         public int Port { get; private set; }
         public event EventHandler<bool> ConnectionChagned;
 
-        public MyTcpClient(string ip, int port)
+        public MyTcpClient(TcpSettings settings)
         {
-            IpAddress = ip;
-            Port = port;
+            IpAddress = settings.IPAddress;
+            Port = settings.Port;
         }
 
         private void Check()

@@ -23,6 +23,7 @@ namespace CommunicationProtocol.WpfApp
     public partial class TcpControl : UserControl, INotifyPropertyChanged
     {
         public TcpController TcpManager { get; set; }
+        public TcpSettings TcpSettings { get; set; }
         public string IPAddress { get; set; }
         public int Port { get; set; }
         public string Message { get; set; }
@@ -105,17 +106,16 @@ namespace CommunicationProtocol.WpfApp
             switch (ratioButton.Content)
             {
                 case "Server":
-                    TcpManager = new TcpController(new MyTcpServer(IPAddress, Port));
+                    TcpManager = new TcpController(new MyTcpServer(TcpSettings));
                     break;
                 default:
-                    TcpManager = new TcpController(new MyTcpClient(IPAddress, Port));
+                    TcpManager = new TcpController(new MyTcpClient(TcpSettings));
                     break;
             }
         }
         private void InitializeIPAddress()
         {
-            IPAddress = AppSettingsMgt.AppSettings.TcpSettings.IPAddress;
-            Port = AppSettingsMgt.AppSettings.TcpSettings.Port;
+
         }
         private void ClearMessage(object sender, RoutedEventArgs e)
         {
@@ -124,7 +124,12 @@ namespace CommunicationProtocol.WpfApp
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            InitializeIPAddress();
+            TcpSettings = AppSettingsMgt.AppSettings.TcpSettings;
+        }
+        private void Save_Click(object sender, RoutedEventArgs e)
+        {
+            AppSettingsMgt.AppSettings.TcpSettings = TcpSettings;
+            AppSettingsMgt.Save();
         }
     }
 }
