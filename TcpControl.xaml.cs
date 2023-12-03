@@ -22,7 +22,7 @@ namespace CommunicationProtocol.WpfApp
     /// </summary>
     public partial class TcpControl : UserControl, INotifyPropertyChanged
     {
-        public TcpController TcpManager { get; set; }
+        public TcpController TcpController { get; set; }
         public TcpSettings TcpSettings { get; set; }
         public string IPAddress { get; set; }
         public int Port { get; set; }
@@ -37,11 +37,11 @@ namespace CommunicationProtocol.WpfApp
 
         private void Connect(object sender, RoutedEventArgs e)
         {
-            TcpManager.Connect();
+            TcpController.Connect();
         }
         private void Disconnect(object sender, RoutedEventArgs e)
         {
-            TcpManager.Disconnect();
+            TcpController.Disconnect();
         }
 
         private void SendMessage(object sender, RoutedEventArgs e)
@@ -51,7 +51,7 @@ namespace CommunicationProtocol.WpfApp
                 var message = $"{DateTime.Now:yyyy/MM/dd HH:mm:ss}     OUT:    {Message}{Environment.NewLine}{Environment.NewLine}";
                 TextLogs.AppendText(message);
                 TextLogs.ScrollToEnd();
-                TcpManager.SendMessage(Message);
+                TcpController.SendMessage(Message);
                 Message = string.Empty;
             }
         }
@@ -62,7 +62,7 @@ namespace CommunicationProtocol.WpfApp
             {
                 while (true)
                 {
-                    if (TcpManager != null && TcpManager.IsConnected)
+                    if (TcpController != null && TcpController.IsConnected)
                     {
                         try
                         {
@@ -79,7 +79,7 @@ namespace CommunicationProtocol.WpfApp
 
         private void UpdateUI()
         {
-            var message = $"{DateTime.Now:yyyy/MM/dd HH:mm:ss}     IN:        {TcpManager.ReadMessage()}{Environment.NewLine}";
+            var message = $"{DateTime.Now:yyyy/MM/dd HH:mm:ss}     IN:        {TcpController.ReadMessage()}{Environment.NewLine}";
 
             Dispatcher.InvokeAsync(new Action(() =>
             {
@@ -94,22 +94,22 @@ namespace CommunicationProtocol.WpfApp
         }
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
-            ChangeTcpManager((RadioButton)sender);
+            ChangeTcpController((RadioButton)sender);
         }
 
-        private void ChangeTcpManager(RadioButton ratioButton)
+        private void ChangeTcpController(RadioButton ratioButton)
         {
-            if (TcpManager != null && TcpManager.IsConnected) TcpManager.Disconnect();
+            if (TcpController != null && TcpController.IsConnected) TcpController.Disconnect();
 
             InitializeIPAddress();
 
             switch (ratioButton.Content)
             {
                 case "Server":
-                    TcpManager = new TcpController(new MyTcpServer(TcpSettings));
+                    TcpController = new TcpController(new MyTcpServer(TcpSettings));
                     break;
                 default:
-                    TcpManager = new TcpController(new MyTcpClient(TcpSettings));
+                    TcpController = new TcpController(new MyTcpClient(TcpSettings));
                     break;
             }
         }

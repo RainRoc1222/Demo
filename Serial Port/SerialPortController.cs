@@ -11,7 +11,7 @@ using System.Windows;
 
 namespace CommunicationProtocol.WpfApp.Serail_Port
 {
-    public class SerialPortController : INotifyPropertyChanged
+    public class SerialPortController : INotifyPropertyChanged,IController
     {
         private SerialConfigOptions mySerialConfigOptions;
         private List<byte> myTempData;

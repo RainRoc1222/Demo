@@ -10,7 +10,7 @@ using NModbus.Serial;
 
 namespace CommunicationProtocol.WpfApp.Modbus
 {
-    public class ModbusController
+    public class ModbusController:IController
     {
         private List<ushort> myTempData;
 
@@ -106,6 +106,10 @@ namespace CommunicationProtocol.WpfApp.Modbus
             }
 
             return 0;
+        }
+
+        public void SendMessage(string message)
+        {
         }
     }
 }
