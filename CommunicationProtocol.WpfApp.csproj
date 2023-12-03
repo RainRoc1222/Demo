@@ -107,9 +107,6 @@
     <Compile Include="SerialPortControl.xaml.cs">
       <DependentUpon>SerialPortControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SystemSettingControl.xaml.cs">
-      <DependentUpon>SystemSettingControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="TcpControl.xaml.cs">
       <DependentUpon>TcpControl.xaml</DependentUpon>
     </Compile>
@@ -132,10 +129,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SerialPortControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="SystemSettingControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
