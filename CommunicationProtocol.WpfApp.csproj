@@ -89,6 +89,7 @@
     </ApplicationDefinition>
     <Compile Include="AppSettings.cs" />
     <Compile Include="AppSettingsMgt.cs" />
+    <Compile Include="CollectionSettings.cs" />
     <Compile Include="ModbusControl.xaml.cs">
       <DependentUpon>ModbusControl.xaml</DependentUpon>
     </Compile>

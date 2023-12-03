@@ -11,10 +11,12 @@ namespace CommunicationProtocol.WpfApp
     {
         public TcpSettings TcpSettings { get; set; }
         public SerialPortSettings SerialPortSettings { get; set; }
+        public SerialPortSettings ModbusSettings { get; set; }
         public AppSettings()
         {
             TcpSettings = new TcpSettings();
             SerialPortSettings = new SerialPortSettings();
+            ModbusSettings = new SerialPortSettings();
         }
     }
 

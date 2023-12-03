@@ -38,6 +38,11 @@ namespace CommunicationProtocol.WpfApp
                 },
                 new PageItem
                 {
+                    Name = "Modbus",
+                    Content = new ModbusControl(),
+                },
+                new PageItem
+                {
                     Name = "SystemSetting",
                     Content = new SystemSettingControl(),
                 },

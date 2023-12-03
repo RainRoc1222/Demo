@@ -44,7 +44,7 @@
                     </WrapPanel>
                     <WrapPanel DockPanel.Dock="Right">
                         <Button Content="Connect" Click="Connect" Margin="10,0" IsEnabled="{c:Binding !IsEnabled,ElementName=DisconnectButton, FalseToVisibility=Collapsed}"/>
-                        <Button Content="Disconnect" Click="Disconnect" Name="DisconnectButton" Margin="10,0" IsEnabled="{Binding TcpManager.IsRunning}"/>
+                        <Button Content="Disconnect" Click="Disconnect" Margin="10,0" IsEnabled="{Binding TcpManager.IsRunning}"/>
                     </WrapPanel>
                     <WrapPanel HorizontalAlignment="Center" Margin="0,2,0,0">
                         <RadioButton Content="Server" GroupName="ServerOrClient" Checked="RadioButton_Checked"  IsChecked="True" Margin="0,0,10,0"/>
@@ -54,7 +54,6 @@
                 <DockPanel Grid.Row="1"  Margin="10">
                     <Button DockPanel.Dock="Right" VerticalAlignment="Bottom" Margin="10,0" Width="100" Height="50" Content="Clear" Click="ClearMessage"/>
                     <DockPanel>
-                      
                         <TextBox DockPanel.Dock="Bottom" x:Name="TextLogs" Style="{x:Null}"  VerticalScrollBarVisibility="Auto" />
                     </DockPanel>
                 </DockPanel>

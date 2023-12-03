@@ -35,7 +35,7 @@
                     </WrapPanel>
                     <WrapPanel DockPanel.Dock="Right" HorizontalAlignment="Right">
                         <Button Content="Connect" Click="Connect" Margin="10,0" IsEnabled="{c:Binding !IsEnabled,ElementName=DisconnectButton, FalseToVisibility=Collapsed}"/>
-                        <Button Content="Disconnect" Click="Disconnect" Name="DisconnectButton" Margin="10,0" IsEnabled="{Binding SerialPortController.IsConnected}"/>
+                        <Button Content="Disconnect" Click="Disconnect" Margin="10,0" IsEnabled="{Binding SerialPortController.IsConnected}"/>
                     </WrapPanel>
                    
                 </DockPanel>
