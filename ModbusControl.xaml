@@ -54,22 +54,10 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
                 </GroupBox>
-                <UniformGrid Rows="2" Grid.Column="2">
-                    <UniformGrid.Resources>
-                        <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
-                            <Setter Property="Width" Value="120"/>
-                            <Setter Property="Height" Value="50"/>
-                        </Style>
-                    </UniformGrid.Resources>
-                    <StackPanel VerticalAlignment="Top">
-                        <Button Content="Connect" Click="Connect" IsEnabled="{c:Binding !IsEnabled,ElementName=disconnectButton, FalseToVisibility=Collapsed}"/>
-                        <Button Content="Disconnect" Click="Disconnect" x:Name="disconnectButton" Margin="0,15,0,0" IsEnabled="{Binding ModbusController.IsConnected}"/>
-                    </StackPanel>
-                    <StackPanel VerticalAlignment="Bottom">
-                        <Button  VerticalAlignment="Bottom" Margin="0,0,0,15" Content="Clear" Click="ClearMessage"/>
-                        <Button  Margin="10,0"  Content="Send" Click="SendMessage" IsEnabled="{Binding ModbusController.IsConnected}"/>
-                    </StackPanel>
-                </UniformGrid>
+                <local:ButtonControl Grid.Column="2" x:Name="ButtonControl"
+                               Message="{Binding Message}" Controller="{Binding SerialPortController}" 
+                               IsRunning="{Binding SerialPortController.IsConnected}" IsConnected="{Binding SerialPortController.IsConnected}"
+                               DataContext="{Binding Path=DataContext}"/>
             </Grid>
         </GroupBox>
     </Grid>

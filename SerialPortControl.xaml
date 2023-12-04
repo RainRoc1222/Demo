@@ -27,23 +27,6 @@
                                                 DataContext="{Binding DataContext}"/>
                 <GroupBox Header="Data" Grid.Column="1" FontSize="20" >
                     <DockPanel >
-                        <WrapPanel DockPanel.Dock="Top">
-                            <TextBlock Text="連線狀態 :" Margin="0,0,10,10"/>
-                            <TextBlock >
-                                <TextBlock.Style>
-                                    <Style TargetType="TextBlock">
-                                        <Setter Property="Foreground" Value="Red"/>
-                                        <Setter Property="Text" Value="未連線"/>
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding SerialPortController.IsConnected}" Value="True">
-                                                <Setter Property="Foreground" Value="Green"/>
-                                                <Setter Property="Text" Value="已連線"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </TextBlock.Style>
-                            </TextBlock>
-                        </WrapPanel>
                         <TextBox  Style="{x:Null}"  
                                   Text="{Binding Message}" 
                                   Height="40" 
