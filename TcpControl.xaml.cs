@@ -31,7 +31,7 @@ namespace CommunicationProtocol.WpfApp
         {
             InitializeComponent();
             StartReceiveMessage();
-            ButtonControl.Send += ButtonControl_Send;
+            ButtonControl.SendString += ButtonControl_SendString;
             ButtonControl.Clear += ButtonControl_Clear;
         }
 
@@ -40,7 +40,7 @@ namespace CommunicationProtocol.WpfApp
             TextLogs.Clear();
         }
 
-        private void ButtonControl_Send(object sender, string e)
+        private void ButtonControl_SendString(object sender, string e)
         {
             TextLogs.AppendText(e);
             TextLogs.ScrollToEnd();

@@ -41,10 +41,8 @@ namespace CommunicationProtocol.WpfApp.Serail_Port
             try
             {
                 SerialPort = new GodSerialPort(mySerialConfigOptions);
-                SerialPort.Open();
+                IsConnected = SerialPort.Open();
                 Read();
-                CheckDataAsync();
-                IsConnected = true;
             }
             catch (Exception ex)
             {
@@ -76,6 +74,7 @@ namespace CommunicationProtocol.WpfApp.Serail_Port
                     if (readBytes != null)
                     {
                         myTempData.AddRange(readBytes);
+                        CheckDataAsync();
                     }
 
                     Task.Delay(10).Wait();

@@ -87,7 +87,7 @@
                 <local:ButtonControl Grid.Column="2" x:Name="ButtonControl"
                                      Message="{Binding Message}" Controller="{Binding TcpController}" 
                                      IsRunning="{Binding TcpController.IsRunning}" IsConnected="{Binding TcpController.IsConnected}"
-                                       DataContext="{Binding Path=DataContext}"/>
+                                       DataContext="{Binding DataContext}"/>
             </Grid>
         </GroupBox>
     </Grid>

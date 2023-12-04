@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommunicationProtocol.WpfApp.Modbus;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -78,7 +79,8 @@ namespace CommunicationProtocol.WpfApp
         public static readonly DependencyProperty TextLogsTextProperty =
             DependencyProperty.Register("TextLogsText", typeof(string), typeof(ButtonControl), new PropertyMetadata());
 
-        public event EventHandler<string> Send;
+        public event EventHandler<string> SendString;
+        public event EventHandler<byte[]> Send;
         public event EventHandler Clear;
 
 
@@ -106,12 +108,20 @@ namespace CommunicationProtocol.WpfApp
 
         private void SendMessage(object sender, RoutedEventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(Message))
+            if (Controller is ModbusController)
             {
-                var message = $"{DateTime.Now:yyyy/MM/dd HH:mm:ss}     OUT:    {Message}{Environment.NewLine}{Environment.NewLine}";
-                Send?.Invoke(this, message);
-                Controller.SendMessage(Message);
+
             }
+            else
+            {
+                if (!string.IsNullOrWhiteSpace(Message))
+                {
+                    var message = $"{DateTime.Now:yyyy/MM/dd HH:mm:ss}     OUT:    {Message}{Environment.NewLine}{Environment.NewLine}";
+                    SendString?.Invoke(this, message);
+                    Controller.SendMessage(Message);
+                }
+            }
+ 
         }
     }
 }

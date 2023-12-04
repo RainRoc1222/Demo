@@ -105,6 +105,9 @@
     </Compile>
     <Compile Include="Modbus\ModbusController.cs" />
     <Compile Include="Serial Port\SerialPortController.cs" />
+    <Compile Include="SerialPortSettingControl.xaml.cs">
+      <DependentUpon>SerialPortSettingControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Tcp\ITcpWrapper.cs" />
     <Compile Include="Tcp\MyTcpServer.cs" />
     <Compile Include="PageItem.cs" />
@@ -137,6 +140,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SerialPortControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SerialPortSettingControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

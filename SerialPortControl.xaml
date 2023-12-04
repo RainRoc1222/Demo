@@ -22,80 +22,9 @@
                     <ColumnDefinition/>
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
-                <GroupBox Header="Settings">
-                    <StackPanel Margin="0,0,50,0">
-                        <StackPanel.Resources>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="Width" Value="150"/>
-                                <Setter Property="TextAlignment" Value="Right"/>
-                            </Style>
-                            <Style TargetType="ComboBox" BasedOn="{StaticResource MaterialDesignComboBox}">
-                                <Setter Property="Width" Value="150"/>
-                            </Style>
-                            <Style TargetType="WrapPanel">
-                                <Setter Property="Margin" Value="0,10,0,0"/>
-                            </Style>
-                        </StackPanel.Resources>
-                        <WrapPanel>
-                            <TextBlock Text="PortName : " Margin="0,0,5,0"/>
-                            <ComboBox ItemsSource="{Binding CollectionSettings.PortNameCollection}" SelectedItem="{Binding SelectedSettings.PortName}" >
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding }" HorizontalAlignment="Center"/>
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
-                        </WrapPanel>
-                        <WrapPanel>
-                            <TextBlock Text="BaudRate : " Margin="0,0,5,0"/>
-                            <ComboBox ItemsSource="{Binding CollectionSettings.BaudRateCollection}" SelectedItem="{Binding SelectedSettings.BaudRate}">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding }" HorizontalAlignment="Center"/>
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
-                        </WrapPanel>
-                        <WrapPanel>
-                            <TextBlock Text="Parity : " Margin="0,0,5,0"/>
-                            <ComboBox ItemsSource="{Binding CollectionSettings.ParityCollection}"  SelectedItem="{Binding SelectedSettings.Parity}">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding }" HorizontalAlignment="Center"/>
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
-                        </WrapPanel>
-                        <WrapPanel >
-                            <TextBlock Text="DataBits : " Margin="0,0,5,0"/>
-                            <ComboBox ItemsSource="{Binding CollectionSettings.DataBitsCollection}" SelectedItem="{Binding SelectedSettings.DataBits}">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding }" HorizontalAlignment="Center"/>
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
-                        </WrapPanel>
-                        <WrapPanel>
-                            <TextBlock Text="StopBits : " Margin="0,0,5,0"/>
-                            <ComboBox ItemsSource="{Binding CollectionSettings.StopBitsCollection}" SelectedItem="{Binding SelectedSettings.StopBits}">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding }" HorizontalAlignment="Center"/>
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
-                        </WrapPanel>
-                        <WrapPanel>
-                            <TextBlock Text="ReadTimeout : " Margin="0,0,5,0"/>
-                            <TextBox  Text="{Binding SelectedSettings.ReadTimeout}" 
-                                      Width="150" TextAlignment="Center"  Padding="0,10,20,0"/>
-                        </WrapPanel>
-                        <Button Content="Save" Click="Save_Click" 
-           Margin="0,50,0,0"
-           Width="100"/>
-                    </StackPanel>
-                </GroupBox>
+                <local:SerialPortSettingControl SelectedSettings="{Binding SelectedSettings}" 
+                                                CollectionSettings="{Binding CollectionSettings}"
+                                                DataContext="{Binding DataContext}"/>
                 <GroupBox Header="Data" Grid.Column="1" FontSize="20" >
                     <DockPanel >
                         <WrapPanel DockPanel.Dock="Top">
@@ -127,22 +56,10 @@
                                   VerticalScrollBarVisibility="Auto"/>
                     </DockPanel>
                 </GroupBox>
-                <UniformGrid Rows="2" Grid.Column="2">
-                    <UniformGrid.Resources>
-                        <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
-                            <Setter Property="Width" Value="120"/>
-                            <Setter Property="Height" Value="50"/>
-                        </Style>
-                    </UniformGrid.Resources>
-                    <StackPanel VerticalAlignment="Top">
-                        <Button Content="Connect" Click="Connect" IsEnabled="{c:Binding !IsEnabled,ElementName=disconnectButton, FalseToVisibility=Collapsed}"/>
-                        <Button Content="Disconnect" Click="Disconnect" Margin="0,15,0,0" x:Name="disconnectButton" IsEnabled="{Binding SerialPortController.IsConnected}"/>
-                    </StackPanel>
-                    <StackPanel VerticalAlignment="Bottom">
-                        <Button  VerticalAlignment="Bottom" Margin="0,0,0,15" Content="Clear" Click="ClearMessage"/>
-                        <Button  Margin="10,0"  Content="Send" Click="SendMessage" IsEnabled="{Binding SerialPortController.IsConnected}"/>
-                    </StackPanel>
-                </UniformGrid>
+                <local:ButtonControl Grid.Column="2" x:Name="ButtonControl"
+                                     Message="{Binding Message}" Controller="{Binding SerialPortController}" 
+                                     IsRunning="{Binding SerialPortController.IsConnected}" IsConnected="{Binding SerialPortController.IsConnected}"
+                                     DataContext="{Binding Path=DataContext}"/>
             </Grid>
         </GroupBox>
     </Grid>
