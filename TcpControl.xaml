@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:CommunicationProtocol.WpfApp" xmlns:c="clr-namespace:CalcBinding;assembly=CalcBinding"
+             xmlns:local="clr-namespace:CommunicationProtocol.WpfApp" xmlns:c="clr-namespace:CalcBinding;assembly=CalcBinding" d:DataContext="{d:DesignInstance Type=local:TcpControl}"
              mc:Ignorable="d" 
              Loaded="UserControl_Loaded"
              DataContext="{Binding RelativeSource={RelativeSource Self}}"
@@ -36,11 +36,11 @@
                         </StackPanel.Resources>
                         <WrapPanel>
                             <TextBlock Text="IP : " />
-                            <TextBox Text="{Binding IPAddress}" Width="150"/>
+                            <TextBox Text="{Binding TcpSettings.IPAddress}" Width="150"/>
                         </WrapPanel>
                         <WrapPanel>
                             <TextBlock Text="Port : " />
-                            <TextBox Text="{Binding Port}"  Width="150"/>
+                            <TextBox Text="{Binding TcpSettings.Port}"  Width="150"/>
                         </WrapPanel>
                         <StackPanel  Margin="50,50,0,0">
                             <RadioButton Content="Server" GroupName="ServerOrClient" Checked="RadioButton_Checked"  
@@ -62,7 +62,7 @@
                                         <Setter Property="Foreground" Value="Red"/>
                                         <Setter Property="Text" Value="未連線"/>
                                         <Style.Triggers>
-                                            <DataTrigger Binding="{Binding TcpManager.IsConnected}" Value="True">
+                                            <DataTrigger Binding="{Binding TcpController.IsConnected}" Value="True">
                                                 <Setter Property="Foreground" Value="Green"/>
                                                 <Setter Property="Text" Value="已連線"/>
                                             </DataTrigger>
@@ -84,22 +84,9 @@
                                  Style="{x:Null}"  VerticalScrollBarVisibility="Auto" />
                     </DockPanel>
                 </GroupBox>
-                <UniformGrid Rows="2" Grid.Column="2">
-                    <UniformGrid.Resources>
-                        <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
-                            <Setter Property="Width" Value="120"/>
-                            <Setter Property="Height" Value="50"/>
-                        </Style>
-                    </UniformGrid.Resources>
-                    <StackPanel VerticalAlignment="Top">
-                        <Button Content="Connect" Click="Connect" IsEnabled="{c:Binding !IsEnabled,ElementName=DisconnectButton, FalseToVisibility=Collapsed}"/>
-                        <Button Content="Disconnect" Click="Disconnect" Margin="0,15,0,0" IsEnabled="{Binding TcpManager.IsRunning}"/>
-                    </StackPanel>
-                    <StackPanel VerticalAlignment="Bottom">
-                        <Button  Margin="0,0,0,15" Content="Clear" Click="ClearMessage"/>
-                        <Button   Content="Send" Click="SendMessage" IsEnabled="{Binding TcpManager.IsConnected}"/>
-                    </StackPanel>
-                </UniformGrid>
+                <local:ButtonControl Grid.Column="2" Message="{Binding Message}" Controller="{Binding TcpController}" 
+                                     IsRunning="{Binding TcpController.IsRunning}" IsConnected="{Binding TcpController.IsConnected}"
+                                       DataContext="{Binding Path=DataContext}"/>
             </Grid>
         </GroupBox>
     </Grid>

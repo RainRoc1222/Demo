@@ -24,8 +24,6 @@ namespace CommunicationProtocol.WpfApp
     {
         public TcpController TcpController { get; set; }
         public TcpSettings TcpSettings { get; set; }
-        public string IPAddress { get; set; }
-        public int Port { get; set; }
         public string Message { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -35,26 +33,6 @@ namespace CommunicationProtocol.WpfApp
             StartReceiveMessage();
         }
 
-        private void Connect(object sender, RoutedEventArgs e)
-        {
-            TcpController.Connect();
-        }
-        private void Disconnect(object sender, RoutedEventArgs e)
-        {
-            TcpController.Disconnect();
-        }
-
-        private void SendMessage(object sender, RoutedEventArgs e)
-        {
-            if (!string.IsNullOrWhiteSpace(Message))
-            {
-                var message = $"{DateTime.Now:yyyy/MM/dd HH:mm:ss}     OUT:    {Message}{Environment.NewLine}{Environment.NewLine}";
-                TextLogs.AppendText(message);
-                TextLogs.ScrollToEnd();
-                TcpController.SendMessage(Message);
-                Message = string.Empty;
-            }
-        }
 
         private void StartReceiveMessage()
         {
@@ -99,27 +77,19 @@ namespace CommunicationProtocol.WpfApp
 
         private void ChangeTcpController(RadioButton ratioButton)
         {
-            if (TcpController != null && TcpController.IsConnected) TcpController.Disconnect();
+            if (TcpController != null) TcpController.Disconnect();
 
-            InitializeIPAddress();
+            if (TcpSettings == null) TcpSettings = AppSettingsMgt.AppSettings.TcpSettings;
 
-            switch (ratioButton.Content)
-            {
-                case "Server":
-                    TcpController = new TcpController(new MyTcpServer(TcpSettings));
-                    break;
-                default:
-                    TcpController = new TcpController(new MyTcpClient(TcpSettings));
-                    break;
-            }
-        }
-        private void InitializeIPAddress()
-        {
-
-        }
-        private void ClearMessage(object sender, RoutedEventArgs e)
-        {
-            TextLogs.Clear();
+                switch (ratioButton.Content)
+                {
+                    case "Server":
+                        TcpController = new TcpController(new MyTcpServer(TcpSettings));
+                        break;
+                    default:
+                        TcpController = new TcpController(new MyTcpClient(TcpSettings));
+                        break;
+                }
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)

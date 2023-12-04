@@ -132,8 +132,8 @@
                         </Style>
                     </UniformGrid.Resources>
                     <StackPanel VerticalAlignment="Top">
-                        <Button Content="Connect" Click="Connect" IsEnabled="{c:Binding !IsEnabled,ElementName=DisconnectButton, FalseToVisibility=Collapsed}"/>
-                        <Button Content="Disconnect" Click="Disconnect" Margin="0,15,0,0" IsEnabled="{Binding ModbusController.IsConnected}"/>
+                        <Button Content="Connect" Click="Connect" IsEnabled="{c:Binding !IsEnabled,ElementName=disconnectButton, FalseToVisibility=Collapsed}"/>
+                        <Button Content="Disconnect" Click="Disconnect" x:Name="disconnectButton" Margin="0,15,0,0" IsEnabled="{Binding ModbusController.IsConnected}"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Bottom">
                         <Button  VerticalAlignment="Bottom" Margin="0,0,0,15" Content="Clear" Click="ClearMessage"/>

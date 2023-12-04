@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CommunicationProtocol.WpfApp
 {
-    public class TcpController : INotifyPropertyChanged
+    public class TcpController : INotifyPropertyChanged,IController
     {
         private ITcpWrapper myTcp;
         public bool IsConnected { get; set; }
@@ -26,7 +26,7 @@ namespace CommunicationProtocol.WpfApp
         {
             IsConnected = e;
 
-            if (sender is MyTcpClient)
+            if (sender is MyTcpServer)
             {
                 IsRunning = e;
             }

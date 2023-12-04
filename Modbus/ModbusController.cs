@@ -10,7 +10,7 @@ using NModbus.Serial;
 
 namespace CommunicationProtocol.WpfApp.Modbus
 {
-    public class ModbusController:IController
+    public class ModbusController : IController
     {
         private List<ushort> myTempData;
 
@@ -18,7 +18,7 @@ namespace CommunicationProtocol.WpfApp.Modbus
 
         private IModbusSerialMaster mySerialMaster;
         public SerialPort SerialPort { get; private set; }
-        public bool IsConnected { get; private set; }   
+        public bool IsConnected { get;  set; }   
 
         public event EventHandler<ushort> ReceiveData;
         public ModbusController(SerialPort serialPort, int slaveId)

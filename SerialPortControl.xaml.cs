@@ -24,7 +24,7 @@ namespace CommunicationProtocol.WpfApp
     /// </summary>
     public partial class SerialPortControl : UserControl, INotifyPropertyChanged
     {
-        public string Message { get; set; }
+        public string Message { get; set; } = "";
         public string ReceiveMessage { get; set; }
         public SerialPortSettings SelectedSettings { get; set; }
         public CollectionSettings CollectionSettings => CollectionSettings.Instance;

@@ -135,8 +135,8 @@
                         </Style>
                     </UniformGrid.Resources>
                     <StackPanel VerticalAlignment="Top">
-                        <Button Content="Connect" Click="Connect" IsEnabled="{c:Binding !IsEnabled,ElementName=DisconnectButton, FalseToVisibility=Collapsed}"/>
-                        <Button Content="Disconnect" Click="Disconnect" Margin="0,15,0,0" IsEnabled="{Binding SerialPortController.IsConnected}"/>
+                        <Button Content="Connect" Click="Connect" IsEnabled="{c:Binding !IsEnabled,ElementName=disconnectButton, FalseToVisibility=Collapsed}"/>
+                        <Button Content="Disconnect" Click="Disconnect" Margin="0,15,0,0" x:Name="disconnectButton" IsEnabled="{Binding SerialPortController.IsConnected}"/>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Bottom">
                         <Button  VerticalAlignment="Bottom" Margin="0,0,0,15" Content="Clear" Click="ClearMessage"/>

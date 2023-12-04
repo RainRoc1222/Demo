@@ -95,7 +95,11 @@
     </ApplicationDefinition>
     <Compile Include="AppSettings.cs" />
     <Compile Include="AppSettingsMgt.cs" />
+    <Compile Include="ButtonControl.xaml.cs">
+      <DependentUpon>ButtonControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CollectionSettings.cs" />
+    <Compile Include="IController.cs" />
     <Compile Include="ModbusControl.xaml.cs">
       <DependentUpon>ModbusControl.xaml</DependentUpon>
     </Compile>
@@ -112,6 +116,10 @@
     </Compile>
     <Compile Include="Tcp\TcpController.cs" />
     <Compile Include="Tcp\MyTcpClient.cs" />
+    <Page Include="ButtonControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
