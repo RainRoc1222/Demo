@@ -31,8 +31,21 @@ namespace CommunicationProtocol.WpfApp
         {
             InitializeComponent();
             StartReceiveMessage();
+            ButtonControl.Send += ButtonControl_Send;
+            ButtonControl.Clear += ButtonControl_Clear;
         }
 
+        private void ButtonControl_Clear(object sender, EventArgs e)
+        {
+            TextLogs.Clear();
+        }
+
+        private void ButtonControl_Send(object sender, string e)
+        {
+            TextLogs.AppendText(e);
+            TextLogs.ScrollToEnd();
+            Message = string.Empty;
+        }
 
         private void StartReceiveMessage()
         {

@@ -78,7 +78,8 @@ namespace CommunicationProtocol.WpfApp
         public static readonly DependencyProperty TextLogsTextProperty =
             DependencyProperty.Register("TextLogsText", typeof(string), typeof(ButtonControl), new PropertyMetadata());
 
-
+        public event EventHandler<string> Send;
+        public event EventHandler Clear;
 
 
 
@@ -100,7 +101,7 @@ namespace CommunicationProtocol.WpfApp
 
         private void ClearMessage(object sender, RoutedEventArgs e)
         {
-            //TextLogs.Clear();
+            Clear?.Invoke(this, null);
         }
 
         private void SendMessage(object sender, RoutedEventArgs e)
@@ -108,8 +109,7 @@ namespace CommunicationProtocol.WpfApp
             if (!string.IsNullOrWhiteSpace(Message))
             {
                 var message = $"{DateTime.Now:yyyy/MM/dd HH:mm:ss}     OUT:    {Message}{Environment.NewLine}{Environment.NewLine}";
-                //TextLogs.AppendText(message);
-                //TextLogs.ScrollToEnd();
+                Send?.Invoke(this, message);
                 Controller.SendMessage(Message);
             }
         }
