@@ -36,6 +36,7 @@ namespace CommunicationProtocol.WpfApp.Serail_Port
             ReadTimeout = settings.ReadTimeout;
         }
 
+
         public void Connect()
         {
             try
@@ -106,6 +107,11 @@ namespace CommunicationProtocol.WpfApp.Serail_Port
         }
 
         public void SendMessage(ushort number, ushort data)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SendMessage(ushort number, bool value)
         {
             throw new NotImplementedException();
         }

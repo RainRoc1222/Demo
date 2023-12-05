@@ -25,6 +25,7 @@ namespace CommunicationProtocol.WpfApp
     public partial class ModbusControl : UserControl, INotifyPropertyChanged
     {
         public ObservableCollection<Signal> Signals { get; set; }
+        public int SelectedIndex { get; set; }
         public ModbusController ModbusController { get; set; }
         public SerialPortSettings SelectedSettings { get; set; }
         public CollectionSettings CollectionSettings => CollectionSettings.Instance;
@@ -48,7 +49,7 @@ namespace CommunicationProtocol.WpfApp
             Signals = new ObservableCollection<Signal>();
             for (ushort i = 0; i < 64; i++)
             {
-                Signals.Add(new Signal() { Index = i, Value = 0 });
+                Signals.Add(new Signal() { Index = i, RegisterValue = 0 });
             }
         }
         private void Save_Click(object sender, RoutedEventArgs e)

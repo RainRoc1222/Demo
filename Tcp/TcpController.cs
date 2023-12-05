@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CommunicationProtocol.WpfApp
 {
-    public class TcpController : INotifyPropertyChanged,IController
+    public class TcpController : IController, INotifyPropertyChanged
     {
         private ITcpWrapper myTcp;
         public bool IsConnected { get; set; }
@@ -64,6 +64,11 @@ namespace CommunicationProtocol.WpfApp
         }
 
         public void SendMessage(ushort number, ushort data)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SendMessage(ushort number, bool value)
         {
             throw new NotImplementedException();
         }

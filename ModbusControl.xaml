@@ -25,7 +25,7 @@
                                           CollectionSettings="{Binding CollectionSettings}"
                                           DataContext="{Binding DataContext}"/>
                 <GroupBox Header="Data" Grid.Column="1" >
-                    <TabControl>
+                    <TabControl SelectedIndex="{Binding SelectedIndex}">
                         <TabItem Header="Register ">
                             <ListBox ItemsSource="{Binding Signals}" ScrollViewer.VerticalScrollBarVisibility="Disabled"  HorizontalAlignment="Center">
                                 <ListBox.ItemsPanel>
@@ -48,7 +48,7 @@
                                         <WrapPanel Margin="0,0,10,0">
                                             <WrapPanel>
                                                 <TextBlock   TextAlignment="Center"  Text="{Binding Path= Index}" Padding="0,15,0,0" Width="50"/>
-                                                <TextBox Background="LightGoldenrodYellow"  TextAlignment="Center"  Text="{Binding Path= Value}" Padding="0,15,0,0" Width="50"/>
+                                                <TextBox Background="LightGoldenrodYellow"  TextAlignment="Center"  Text="{Binding Path= RegisterValue}" Padding="0,15,0,0" Width="50"/>
                                             </WrapPanel>
                                         </WrapPanel>
                                     </DataTemplate>
@@ -56,14 +56,41 @@
                             </ListBox>
                         </TabItem>
                         <TabItem Header="Coli">
-                            
+                            <ListBox ItemsSource="{Binding Signals}" ScrollViewer.VerticalScrollBarVisibility="Disabled"  HorizontalAlignment="Center">
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Vertical"/>
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+                                <ListBox.ItemContainerStyle>
+                                    <Style TargetType="ListBoxItem" BasedOn="{StaticResource MaterialDesignListBoxItem}">
+                                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                                                <Setter Property="IsSelected" Value="True" />
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ListBox.ItemContainerStyle>
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <WrapPanel Margin="0,0,10,0">
+                                            <WrapPanel>
+                                                <TextBlock   TextAlignment="Center"  Text="{Binding Path= Index}" Padding="0,15,0,0" Width="50"/>
+                                                <ToggleButton  Background="LightGoldenrodYellow"
+                                                          IsChecked="{Binding Path= ColiValue}" Padding="0,15,0,0" Width="50"/>
+                                            </WrapPanel>
+                                        </WrapPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
                         </TabItem>
                     </TabControl>
                 </GroupBox>
                 <local:ButtonControl Grid.Column="2" x:Name="ButtonControl"
                                Message="{Binding Message}" Controller="{Binding ModbusController}" 
                                IsRunning="{Binding ModbusController.IsConnected}" IsConnected="{Binding ModbusController.IsConnected}"
-                               Signals="{Binding Signals}"
+                               Signals="{Binding Signals}" SelectedIndex="{Binding SelectedIndex}"
                                DataContext="{Binding Path=DataContext}"/>
             </Grid>
         </GroupBox>

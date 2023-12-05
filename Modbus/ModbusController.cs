@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Markup;
 using NModbus;
 using NModbus.Serial;
 
@@ -115,9 +116,14 @@ namespace CommunicationProtocol.WpfApp.Modbus
         {
         }
 
-        public void SendMessage(ushort number, ushort data)
+        public void SendMessage(ushort number, ushort value)
         {
-            mySerialMaster?.WriteSingleRegister((byte)mySlaveId,number,data);
+            mySerialMaster?.WriteSingleRegister((byte)mySlaveId,number,value);
+        }
+
+        public void SendMessage(ushort number, bool value)
+        {
+            mySerialMaster?.WriteSingleCoil((byte)mySlaveId, number, value);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using CommunicationProtocol.WpfApp.Modbus;
+using CommunicationProtocol.WpfApp.Serail_Port;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -24,6 +25,18 @@ namespace CommunicationProtocol.WpfApp
     public partial class ButtonControl : UserControl
     {
 
+
+        public int SelectedIndex
+        {
+            get { return (int)GetValue(SelectedIndexProperty); }
+            set { SetValue(SelectedIndexProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for SelectedIndex.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SelectedIndexProperty =
+            DependencyProperty.Register("SelectedIndex", typeof(int), typeof(ButtonControl), new PropertyMetadata());
+
+
         public ObservableCollection<Signal> Signals
         {
             get { return (ObservableCollection<Signal>)GetValue(SignalsProperty); }
@@ -32,7 +45,7 @@ namespace CommunicationProtocol.WpfApp
 
         // Using a DependencyProperty as the backing store for Signals.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SignalsProperty =
-            DependencyProperty.Register("Signals", typeof (ObservableCollection<Signal>), typeof(ButtonControl), new PropertyMetadata());
+            DependencyProperty.Register("Signals", typeof(ObservableCollection<Signal>), typeof(ButtonControl), new PropertyMetadata());
 
 
         public string Message
@@ -121,9 +134,20 @@ namespace CommunicationProtocol.WpfApp
         {
             if (Controller is ModbusController)
             {
-                foreach (var signal in Signals)
+                switch (SelectedIndex)
                 {
-                    Controller.SendMessage(signal.Index,signal.Value);
+                    case 1:
+                        foreach (var signal in Signals)
+                        {
+                            Controller.SendMessage(signal.Index, signal.ColiValue);
+                        }
+                        break;
+                    default:
+                        foreach (var signal in Signals)
+                        {
+                            Controller.SendMessage(signal.Index, signal.RegisterValue);
+                        }
+                        break;
                 }
             }
             else
@@ -131,8 +155,8 @@ namespace CommunicationProtocol.WpfApp
                 if (!string.IsNullOrWhiteSpace(Message))
                 {
                     var message = $"{DateTime.Now:yyyy/MM/dd HH:mm:ss}     OUT:    {Message}{Environment.NewLine}{Environment.NewLine}";
-                    SendString?.Invoke(this, message);
                     Controller.SendMessage(Message);
+                    SendString?.Invoke(this, message);
                 }
             }
         }
