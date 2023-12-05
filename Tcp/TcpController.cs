@@ -57,5 +57,15 @@ namespace CommunicationProtocol.WpfApp
                 myTcp.SendMessage(message);
             }
         }
+
+        public void SendMessage(ushort[] data)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SendMessage(ushort number, ushort data)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

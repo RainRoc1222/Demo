@@ -25,38 +25,45 @@
                                           CollectionSettings="{Binding CollectionSettings}"
                                           DataContext="{Binding DataContext}"/>
                 <GroupBox Header="Data" Grid.Column="1" >
-                    <ListBox ItemsSource="{Binding InputSignals}"  SelectedIndex="{Binding SelectedInputIndex}" AlternationCount="{Binding InputSignals.Length}" 
-                         ScrollViewer.VerticalScrollBarVisibility="Disabled"  HorizontalAlignment="Center">
-                        <ListBox.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel Orientation="Vertical"/>
-                            </ItemsPanelTemplate>
-                        </ListBox.ItemsPanel>
-                        <ListBox.ItemContainerStyle>
-                            <Style TargetType="ListBoxItem" BasedOn="{StaticResource MaterialDesignListBoxItem}">
-                                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                                <Style.Triggers>
-                                    <Trigger Property="IsKeyboardFocusWithin" Value="True">
-                                        <Setter Property="IsSelected" Value="True" />
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </ListBox.ItemContainerStyle>
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <WrapPanel Margin="0,0,10,0">
-                                    <WrapPanel>
-                                        <TextBlock Text="{Binding Path=(ItemsControl.AlternationIndex), RelativeSource={RelativeSource AncestorType=ListBoxItem}}" Foreground="Black" Padding="0,15,0,0" Width="30"/>
-                                        <TextBox Background="LightGoldenrodYellow"  TextAlignment="Center"  Text="{Binding Path=.}" Padding="0,15,0,0" Width="50"/>
-                                    </WrapPanel>
-                                </WrapPanel>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
+                    <TabControl>
+                        <TabItem Header="Register ">
+                            <ListBox ItemsSource="{Binding Signals}" ScrollViewer.VerticalScrollBarVisibility="Disabled"  HorizontalAlignment="Center">
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Vertical"/>
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+                                <ListBox.ItemContainerStyle>
+                                    <Style TargetType="ListBoxItem" BasedOn="{StaticResource MaterialDesignListBoxItem}">
+                                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                                                <Setter Property="IsSelected" Value="True" />
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ListBox.ItemContainerStyle>
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <WrapPanel Margin="0,0,10,0">
+                                            <WrapPanel>
+                                                <TextBlock   TextAlignment="Center"  Text="{Binding Path= Index}" Padding="0,15,0,0" Width="50"/>
+                                                <TextBox Background="LightGoldenrodYellow"  TextAlignment="Center"  Text="{Binding Path= Value}" Padding="0,15,0,0" Width="50"/>
+                                            </WrapPanel>
+                                        </WrapPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </TabItem>
+                        <TabItem Header="Coli">
+                            
+                        </TabItem>
+                    </TabControl>
                 </GroupBox>
                 <local:ButtonControl Grid.Column="2" x:Name="ButtonControl"
                                Message="{Binding Message}" Controller="{Binding ModbusController}" 
                                IsRunning="{Binding ModbusController.IsConnected}" IsConnected="{Binding ModbusController.IsConnected}"
+                               Signals="{Binding Signals}"
                                DataContext="{Binding Path=DataContext}"/>
             </Grid>
         </GroupBox>

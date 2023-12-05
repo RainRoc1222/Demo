@@ -108,6 +108,7 @@
     <Compile Include="SerialPortSettingControl.xaml.cs">
       <DependentUpon>SerialPortSettingControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Signal.cs" />
     <Compile Include="Tcp\ITcpWrapper.cs" />
     <Compile Include="Tcp\MyTcpServer.cs" />
     <Compile Include="PageItem.cs" />

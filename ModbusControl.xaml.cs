@@ -1,6 +1,7 @@
 ﻿using CommunicationProtocol.WpfApp.Modbus;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO.Ports;
 using System.Linq;
@@ -23,19 +24,33 @@ namespace CommunicationProtocol.WpfApp
     /// </summary>
     public partial class ModbusControl : UserControl, INotifyPropertyChanged
     {
-        public int[] InputSignals { get; set; }
-        public int SelectedInputIndex { get; set; }
+        public ObservableCollection<Signal> Signals { get; set; }
         public ModbusController ModbusController { get; set; }
         public SerialPortSettings SelectedSettings { get; set; }
         public CollectionSettings CollectionSettings => CollectionSettings.Instance;
         public event PropertyChangedEventHandler PropertyChanged;
 
+
         public ModbusControl()
         {
             InitializeComponent();
-            InputSignals = new int[64];
+            InitialzeSignals();
+            ButtonControl.Clear += ButtonControl_Clear;
         }
 
+        private void ButtonControl_Clear(object sender, EventArgs e)
+        {
+            InitialzeSignals();
+        }
+
+        public void InitialzeSignals()
+        {
+            Signals = new ObservableCollection<Signal>();
+            for (ushort i = 0; i < 64; i++)
+            {
+                Signals.Add(new Signal() { Index = i, Value = 0 });
+            }
+        }
         private void Save_Click(object sender, RoutedEventArgs e)
         {
             AppSettingsMgt.AppSettings.ModbusSettings = SelectedSettings;

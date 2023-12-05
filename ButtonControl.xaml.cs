@@ -1,6 +1,7 @@
 ﻿using CommunicationProtocol.WpfApp.Modbus;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,16 @@ namespace CommunicationProtocol.WpfApp
     /// </summary>
     public partial class ButtonControl : UserControl
     {
+
+        public ObservableCollection<Signal> Signals
+        {
+            get { return (ObservableCollection<Signal>)GetValue(SignalsProperty); }
+            set { SetValue(SignalsProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Signals.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SignalsProperty =
+            DependencyProperty.Register("Signals", typeof (ObservableCollection<Signal>), typeof(ButtonControl), new PropertyMetadata());
 
 
         public string Message
@@ -110,7 +121,10 @@ namespace CommunicationProtocol.WpfApp
         {
             if (Controller is ModbusController)
             {
-                Controller.SendMessage(Message);
+                foreach (var signal in Signals)
+                {
+                    Controller.SendMessage(signal.Index,signal.Value);
+                }
             }
             else
             {
