@@ -42,26 +42,6 @@ namespace CommunicationProtocol.WpfApp
             AppSettingsMgt.Save();
         }
 
-        private void ClearMessage(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void SendMessage(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Disconnect(object sender, RoutedEventArgs e)
-        {
-            ModbusController.Disconnect();
-        }
-
-        private void Connect(object sender, RoutedEventArgs e)
-        {
-            ModbusController.Connect();
-        }
-
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             try

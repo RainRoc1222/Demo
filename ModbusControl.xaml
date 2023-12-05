@@ -55,8 +55,8 @@
                     </ListBox>
                 </GroupBox>
                 <local:ButtonControl Grid.Column="2" x:Name="ButtonControl"
-                               Message="{Binding Message}" Controller="{Binding SerialPortController}" 
-                               IsRunning="{Binding SerialPortController.IsConnected}" IsConnected="{Binding SerialPortController.IsConnected}"
+                               Message="{Binding Message}" Controller="{Binding ModbusController}" 
+                               IsRunning="{Binding ModbusController.IsConnected}" IsConnected="{Binding ModbusController.IsConnected}"
                                DataContext="{Binding Path=DataContext}"/>
             </Grid>
         </GroupBox>

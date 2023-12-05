@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ using NModbus.Serial;
 
 namespace CommunicationProtocol.WpfApp.Modbus
 {
-    public class ModbusController : IController
+    public class ModbusController : IController,INotifyPropertyChanged
     {
         private List<ushort> myTempData;
 
@@ -21,6 +22,8 @@ namespace CommunicationProtocol.WpfApp.Modbus
         public bool IsConnected { get;  set; }   
 
         public event EventHandler<ushort> ReceiveData;
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public ModbusController(SerialPort serialPort, int slaveId)
         {
             try
@@ -110,6 +113,7 @@ namespace CommunicationProtocol.WpfApp.Modbus
 
         public void SendMessage(string message)
         {
+            mySerialMaster.WriteSingleCoil((byte)mySlaveId,1,true);
         }
     }
 }

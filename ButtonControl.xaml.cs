@@ -110,7 +110,7 @@ namespace CommunicationProtocol.WpfApp
         {
             if (Controller is ModbusController)
             {
-
+                Controller.SendMessage(Message);
             }
             else
             {
@@ -121,7 +121,6 @@ namespace CommunicationProtocol.WpfApp
                     Controller.SendMessage(Message);
                 }
             }
- 
         }
     }
 }
