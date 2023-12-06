@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
@@ -20,6 +21,14 @@ namespace CommunicationProtocol.WpfApp
         public MainWindow()
         {
             InitializePageItems();
+            StateChanged += MainWindow_StateChanged;
+        }
+        private void MainWindow_StateChanged(object sender, EventArgs e)
+        {
+            if (WindowState == WindowState.Minimized)
+            {
+                Hide();
+            }
         }
 
         private void InitializePageItems()
@@ -60,6 +69,18 @@ namespace CommunicationProtocol.WpfApp
 
             MenuToggleButton.IsChecked = false;
 
+        }
+
+        private void Icon_TrayMouseDoubleClick(object sender, RoutedEventArgs e)
+        {
+            Show();
+            WindowState = WindowState.Normal;
+            Topmost = true;
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            CommunicationProtocol.Dispose();
         }
     }
 }

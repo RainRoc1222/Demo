@@ -3,8 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:calcBinding="clr-namespace:CalcBinding;assembly=CalcBinding"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+        xmlns:calcBinding="clr-namespace:CalcBinding;assembly=CalcBinding"
         mc:Ignorable="d"
+       xmlns:tb="http://www.hardcodet.net/taskbar"
+        Closed="Window_Closed"
         Loaded="MainWindow_OnLoaded"
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
         Title="MainWindow" Height="1000" Width="1400">
@@ -57,6 +60,27 @@
                                   Margin="10,10"
                                   Visibility="{calcBinding:Binding !IsChecked,ElementName=MenuToggleButton, FalseToVisibility=Collapsed}" />
                 </Grid>
+                <tb:TaskbarIcon 
+                     IconSource="\Icon\PC.ico"
+                     x:Name="CommunicationProtocol"
+                     TrayMouseDoubleClick="Icon_TrayMouseDoubleClick"
+                     >
+                    <tb:TaskbarIcon.TrayToolTip  >
+                        <Border Background="LightSteelBlue"  BorderBrush="LightCyan" CornerRadius="5" BorderThickness="2"
+                              Width="160" Height="40">
+                            <StackPanel>
+                                <StackPanel.Resources>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Foreground" Value="Black"/>
+                                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    </Style>
+                                </StackPanel.Resources>
+                                <TextBlock Text="Communication"  Padding="0,2,0,2"/>
+                                <TextBlock Text="Protocol"  Padding="0,0,0,2"/>
+                            </StackPanel>
+                        </Border>
+                    </tb:TaskbarIcon.TrayToolTip>
+                </tb:TaskbarIcon>
             </Grid>
         </materialDesign:DrawerHost>
     </materialDesign:DialogHost>
