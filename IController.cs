@@ -12,7 +12,5 @@ namespace CommunicationProtocol.WpfApp
         void Connect();
         void Disconnect();
         void SendMessage(string message);
-        void SendMessage(ushort number,ushort value);
-        void SendMessage(ushort number,bool value);
     }
 }

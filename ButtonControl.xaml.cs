@@ -103,8 +103,7 @@ namespace CommunicationProtocol.WpfApp
         public static readonly DependencyProperty TextLogsTextProperty =
             DependencyProperty.Register("TextLogsText", typeof(string), typeof(ButtonControl), new PropertyMetadata());
 
-        public event EventHandler<string> SendString;
-        public event EventHandler<byte[]> Send;
+        public event EventHandler<string> Send;
         public event EventHandler Clear;
 
 
@@ -132,20 +131,20 @@ namespace CommunicationProtocol.WpfApp
 
         private void SendMessage(object sender, RoutedEventArgs e)
         {
-            if (Controller is ModbusController)
+            if (Controller is ModbusController controller)
             {
                 switch (SelectedIndex)
                 {
                     case 1:
                         foreach (var signal in Signals)
                         {
-                            Controller.SendMessage(signal.Index, signal.ColiValue);
+                            controller.SendMessage(signal.Index, signal.ColiValue);
                         }
                         break;
                     default:
                         foreach (var signal in Signals)
                         {
-                            Controller.SendMessage(signal.Index, signal.RegisterValue);
+                            controller.SendMessage(signal.Index, signal.RegisterValue);
                         }
                         break;
                 }
@@ -156,7 +155,7 @@ namespace CommunicationProtocol.WpfApp
                 {
                     var message = $"{DateTime.Now:yyyy/MM/dd HH:mm:ss}     OUT:    {Message}{Environment.NewLine}{Environment.NewLine}";
                     Controller.SendMessage(Message);
-                    SendString?.Invoke(this, message);
+                    Send?.Invoke(this, message);
                 }
             }
         }

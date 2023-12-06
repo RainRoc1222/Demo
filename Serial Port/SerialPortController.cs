@@ -17,7 +17,6 @@ namespace CommunicationProtocol.WpfApp.Serail_Port
         private List<byte> myTempData;
         public GodSerialPort SerialPort { get; set; }
         public string ReceiveMessage { get; set; }
-        public int ReadTimeout { get; private set; }
         public bool IsConnected { get; set; }
         public event EventHandler<byte[]> ReceiveData;
         public event PropertyChangedEventHandler PropertyChanged;
@@ -33,7 +32,6 @@ namespace CommunicationProtocol.WpfApp.Serail_Port
                 StopBits = settings.StopBits,
                 DataBits = settings.DataBits,
             };
-            ReadTimeout = settings.ReadTimeout;
         }
 
 
@@ -99,21 +97,6 @@ namespace CommunicationProtocol.WpfApp.Serail_Port
                     myTempData.Clear();
                 }
             }
-        }
-
-        public void SendMessage(ushort[] data)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SendMessage(ushort number, ushort data)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SendMessage(ushort number, bool value)
-        {
-            throw new NotImplementedException();
         }
     }
 }

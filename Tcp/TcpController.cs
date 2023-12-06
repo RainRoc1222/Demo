@@ -25,11 +25,7 @@ namespace CommunicationProtocol.WpfApp
         private void ConnectionChagned(object sender, bool e)
         {
             IsConnected = e;
-
-            if (sender is MyTcpServer)
-            {
-                IsRunning = e;
-            }
+            IsRunning = e;
         }
 
         public void Connect()
@@ -56,21 +52,6 @@ namespace CommunicationProtocol.WpfApp
             {
                 myTcp.SendMessage(message);
             }
-        }
-
-        public void SendMessage(ushort[] data)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SendMessage(ushort number, ushort data)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SendMessage(ushort number, bool value)
-        {
-            throw new NotImplementedException();
         }
     }
 }

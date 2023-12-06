@@ -34,7 +34,7 @@ namespace CommunicationProtocol.WpfApp
         public SerialPortControl()
         {
             InitializeComponent();
-            ButtonControl.SendString += ButtonControl_SendString;
+            ButtonControl.Send += ButtonControl_Send;
             ButtonControl.Clear += ButtonControl_Clear;
         }
 
@@ -43,7 +43,7 @@ namespace CommunicationProtocol.WpfApp
             TextLogs.Clear();
         }
 
-        private void ButtonControl_SendString(object sender, string e)
+        private void ButtonControl_Send(object sender, string e)
         {
             TextLogs.AppendText(e);
             TextLogs.ScrollToEnd();

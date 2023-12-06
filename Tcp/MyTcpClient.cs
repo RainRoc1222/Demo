@@ -1,27 +1,19 @@
 ﻿using CommunicationProtocol.WpfApp.Tcp;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Net.Http;
 using System.Net.Sockets;
-using System.Runtime.InteropServices;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.Windows;
 
 namespace CommunicationProtocol.WpfApp
 {
-    public class MyTcpClient : ITcpWrapper
+    public class MyTcpClient : ITcpWrapper,INotifyPropertyChanging
     {
         public TcpClient myTcpClient;
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public string IpAddress { get; private set; }
         public int Port { get; private set; }
         public event EventHandler<bool> ConnectionChagned;
+        public event PropertyChangingEventHandler PropertyChanging;
 
         public MyTcpClient(TcpSettings settings)
         {
@@ -63,12 +55,12 @@ namespace CommunicationProtocol.WpfApp
             {
                 myTcpClient = new TcpClient();
                 myTcpClient.Connect(IpAddress, Port);
-                ConnectionChagned.Invoke(this, myTcpClient.Connected);
+                ConnectionChagned.Invoke(this, true);
                 CheckConnection();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                ConnectionChagned.Invoke(this, false);
             }
         }
 
@@ -78,12 +70,11 @@ namespace CommunicationProtocol.WpfApp
             {
                 myTcpClient.GetStream().Close();
                 myTcpClient.Close();
-                ConnectionChagned.Invoke(this, false);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
             }
+            ConnectionChagned.Invoke(this, false);
         }
 
         public void SendMessage(string message)
@@ -97,7 +88,6 @@ namespace CommunicationProtocol.WpfApp
             catch (Exception ex)
             {
                 ConnectionChagned.Invoke(this, false);
-                MessageBox.Show(ex.ToString());
             }
         }
 

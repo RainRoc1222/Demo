@@ -32,6 +32,5 @@ namespace CommunicationProtocol.WpfApp
         public Parity Parity { get; set; }
         public int DataBits { get; set; }
         public StopBits StopBits { get; set; }
-        public int ReadTimeout { get; set; }
     }
 }

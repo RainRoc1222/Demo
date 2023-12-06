@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using Newtonsoft.Json;
+using StopBits = System.IO.Ports.StopBits;
+using Parity = System.IO.Ports.Parity;
 
 namespace CommunicationProtocol.WpfApp
 {
@@ -37,6 +39,22 @@ namespace CommunicationProtocol.WpfApp
                     {
                         IPAddress = "127.0.0.1",
                         Port = 6101
+                    },
+                    SerialPortSettings = new SerialPortSettings()
+                    {
+                        PortName ="COM1",
+                        StopBits = StopBits.One,
+                        DataBits = 8,
+                        BaudRate = 9600,
+                        Parity = Parity.None,
+                    },
+                    ModbusSettings = new SerialPortSettings()
+                    {
+                        PortName = "COM3",
+                        StopBits = StopBits.One,
+                        DataBits = 8,
+                        BaudRate = 9600,
+                        Parity = Parity.None,
                     }
                 };
                 Save();

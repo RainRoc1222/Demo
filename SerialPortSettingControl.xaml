@@ -70,11 +70,6 @@
                     </ComboBox.ItemTemplate>
                 </ComboBox>
             </WrapPanel>
-            <WrapPanel>
-                <TextBlock Text="ReadTimeout : " Margin="0,0,5,0"/>
-                <TextBox  Text="{Binding SelectedSettings.ReadTimeout}" 
-                                      Width="150" TextAlignment="Center"  Padding="0,10,20,0"/>
-            </WrapPanel>
             <Button Content="Save" Click="Save_Click" 
            Margin="0,50,0,0"
            Width="100"/>
