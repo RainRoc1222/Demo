@@ -9,19 +9,19 @@
 輸入IP、Port，並按下Save儲存。  
 <image src="https://github.com/RainRoc1222/Demo/blob/sub_Rain/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8A/TCP/TCP_1.png"/>
 選擇Server/Client，並按下Connect開啟通訊。  
-<image src="https://github.com/RainRoc1222/Demo/blob/sub_Rain/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8A/TCP/TCP_3.png"/>
+<image src="https://github.com/RainRoc1222/Demo/blob/sub_Rain/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8A/TCP/TCP_2.png"/>
 打開Sscom，輸入相同的IP、Port，並選擇Server/Client，按下Listen/Connect與程式做對接。
-<image src=""/>
+<image src="https://github.com/RainRoc1222/Demo/blob/sub_Rain/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8A/TCP/TCP_3.png"/>
 輸入預傳送的訊息，並按下Send。    
-<image src=""/>
+<image src="https://github.com/RainRoc1222/Demo/blob/sub_Rain/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8A/TCP/TCP_4.png"/>
 Sscom的Server/Client接受到訊息。
-<image src=""/>
+<image src="https://github.com/RainRoc1222/Demo/blob/sub_Rain/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8A/TCP/TCP_5.png"/>
 在Sscom中輸入預傳送的訊息，並按下Send。
-<image src=""/>
+<image src="https://github.com/RainRoc1222/Demo/blob/sub_Rain/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8A/TCP/TCP_6.png"/>
 應用程式接收到Server/Client回傳訊息。 
-<image src=""/>   
+<image src="https://github.com/RainRoc1222/Demo/blob/sub_Rain/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8A/TCP/TCP_7.png"/>
 按下Clear清空畫面上的訊息。   
-<image src=""/>
+<image src="https://github.com/RainRoc1222/Demo/blob/sub_Rain/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8A/TCP/TCP_8.png"/>
 
 <h2>SerialPort</h2>
 選擇PortName、BaudRate、Parity、DataBits、StopBits，並按下Save儲存。  
