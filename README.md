@@ -5,45 +5,38 @@
 
 <h2>TCP/IP</h2>
 輸入IP、Port，並按下Save儲存。  
+<image src=""/>
 選擇Server/Client，並按下Connect開啟通訊。  
-打開Sscom，輸入相同的IP、Port，並選擇Server/Client，按下Listen/Connect與程式做對接。  
-輸入預傳送的訊息，並按下Send。  
-Sscom的Server/Client接受到訊息。  
-在Sscom中輸入預傳送的訊息，並按下Send。  
-應用程式接收到Server/Client回傳訊息。  
-
-***Module authors!*** Tired of making up your readme format every time you
-write it? Do you just want consistent readmes pre-populated with your module's
-name, description and license without worrying about the structure every time?
-
+<image src=""/>
+打開Sscom，輸入相同的IP、Port，並選擇Server/Client，按下Listen/Connect與程式做對接。
+<image src=""/>
+輸入預傳送的訊息，並按下Send。    
+<image src=""/>
+Sscom的Server/Client接受到訊息。
+<image src=""/>
+在Sscom中輸入預傳送的訊息，並按下Send。
+<image src=""/>
+應用程式接收到Server/Client回傳訊息。 
+<image src=""/>   
 ---
 
-What if there was a common format for the benefit of producers and consumers?
-
-A *common readme* for node modules.
-
-This can save everybody time by adhering to 4 principles:
-
-1. **No lock in.** No special formats or tooling; run `common-readme` once for
-   pure vanilla markdown.
-2. **No surprises.** Pull as many details out of `package.json` -- like name,
-   description, and license -- as possible. No time wasted on configuration.
-3. **Cognitive funnelling.** Start with the most general information at the top
-   (Name, Description, Examples) and if the reader maintains interest, narrow
-   down to specifics (API, Installation). This makes it easy for readers to
-   "short circuit" and continue the hunt for the right module elsewhere without
-   wasting time delving into unnecessary details.
-4. **Consistency.** Your brain can scan a document much faster when it can
-   anticipate its structure.
-
-## Common format
-
-common-readme operates on the principle of *cognitive funneling*.
-
-> Ideally, someone who's slightly familiar with your module should be able to
-> refresh their memory without hitting "page down".  As your reader continues
-> through the document, they should receive a progressively greater amount of
-> knowledge. -- `perlmodstyle`
+<h2>SerialPort</h2>
+選擇PortName、BaudRate、Parity、DataBits、StopBits，並按下Save儲存。  
+<image src=""/>
+按下Connect開啟通訊。  
+<image src=""/>
+打開Virtual Serial Port Driver，建立虛擬COM Port。   
+   <image src=""/>
+打開Sscom，輸入相同的IP、Port，並選擇Server/Client，按下Listen/Connect與程式做對接。
+<image src=""/>
+輸入預傳送的訊息，並按下Send。    
+<image src=""/>
+Sscom的Server/Client接受到訊息。
+<image src=""/>
+在Sscom中輸入預傳送的訊息，並按下Send。
+<image src=""/>
+應用程式接收到Server/Client回傳訊息。 
+<image src=""/>  
 
 Here are some READMEs generated using common-readme:
 
