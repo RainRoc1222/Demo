@@ -2,12 +2,14 @@
 
 <h2>選擇通訊協定</h2>
 點擊左上角的☰符號展開Menu，從TCP/IP、SerialPort、Modubus選擇一個通訊協定。
+<image src="https://github.com/RainRoc1222/Demo/blob/sub_Rain/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8A/Menu/Menu_1.png"/>
+<image src="https://github.com/RainRoc1222/Demo/blob/sub_Rain/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8A/Menu/Menu_2.png"/>
 
 <h2>TCP/IP</h2>
 輸入IP、Port，並按下Save儲存。  
-<image src=""/>
+<image src="https://github.com/RainRoc1222/Demo/blob/sub_Rain/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8A/TCP/TCP_1.png"/>
 選擇Server/Client，並按下Connect開啟通訊。  
-<image src=""/>
+<image src="https://github.com/RainRoc1222/Demo/blob/sub_Rain/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8A/TCP/TCP_3.png"/>
 打開Sscom，輸入相同的IP、Port，並選擇Server/Client，按下Listen/Connect與程式做對接。
 <image src=""/>
 輸入預傳送的訊息，並按下Send。    
