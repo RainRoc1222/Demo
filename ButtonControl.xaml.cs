@@ -22,7 +22,7 @@ namespace CommunicationProtocol.WpfApp
     /// <summary>
     /// ButtonControl.xaml 的互動邏輯
     /// </summary>
-    public partial class ButtonControl : UserControl
+    public partial class ButtonControl : UserControl,INotifyPropertyChanged
     {
 
 
@@ -105,8 +105,7 @@ namespace CommunicationProtocol.WpfApp
 
         public event EventHandler<string> Send;
         public event EventHandler Clear;
-
-
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public ButtonControl()
         {
@@ -114,22 +113,22 @@ namespace CommunicationProtocol.WpfApp
         }
 
 
-        private void Connect(object sender, RoutedEventArgs e)
+        private void Connect_Click(object sender, RoutedEventArgs e)
         {
             Controller.Connect();
         }
 
-        private void Disconnect(object sender, RoutedEventArgs e)
+        private void Disconnect_Click(object sender, RoutedEventArgs e)
         {
             Controller.Disconnect();
         }
 
-        private void ClearMessage(object sender, RoutedEventArgs e)
+        private void ClearMessage_Click(object sender, RoutedEventArgs e)
         {
             Clear?.Invoke(this, null);
         }
 
-        private void SendMessage(object sender, RoutedEventArgs e)
+        private void SendMessage_Click(object sender, RoutedEventArgs e)
         {
             if (Controller is ModbusController controller)
             {

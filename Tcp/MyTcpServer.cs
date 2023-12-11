@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CommunicationProtocol.WpfApp
 {
-    public class MyTcpServer :ITcpWrapper,INotifyPropertyChanged
+    public class MyTcpServer : ITcpWrapper, INotifyPropertyChanged
     {
         private TcpListener myTcpListener;
         private TcpClient myTcpClient;
@@ -41,8 +41,8 @@ namespace CommunicationProtocol.WpfApp
             try
             {
                 myTcpListener.Stop();
-                ConnectionChagned.Invoke(this, false);
                 RemoveClient();
+                ConnectionChagned.Invoke(this, false);
             }
             catch (Exception ex)
             {
@@ -80,11 +80,15 @@ namespace CommunicationProtocol.WpfApp
         }
         private void Check()
         {
-            myTcpClient.Client.Poll(0, SelectMode.SelectRead);
-            byte[] testRecByte = new byte[1];
-            if (myTcpClient.Client.Receive(testRecByte, SocketFlags.Peek) == 0)
+            try
             {
-                Disconnect();
+                myTcpClient.Client.Poll(0, SelectMode.SelectRead);
+                byte[] testRecByte = new byte[1];
+                if (myTcpClient.Client.Receive(testRecByte, SocketFlags.Peek) == 0) Disconnect();
+            }
+            catch (Exception)
+            {
+                ConnectionChagned?.Invoke(this, false);
             }
         }
 
@@ -104,14 +108,7 @@ namespace CommunicationProtocol.WpfApp
                     }
                     else
                     {
-                        try
-                        {
-                            Check();
-                        }
-                        catch (Exception)
-                        {
-                            ConnectionChagned?.Invoke(this, false);
-                        }
+                        Check();
                     }
 
                     Task.Delay(10);

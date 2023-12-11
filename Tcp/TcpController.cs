@@ -11,7 +11,7 @@ namespace CommunicationProtocol.WpfApp
 {
     public class TcpController : IController, INotifyPropertyChanged
     {
-        private ITcpWrapper myTcp;
+        public ITcpWrapper myTcp;
         public bool IsConnected { get; set; }
         public bool IsRunning { get; set; }
 

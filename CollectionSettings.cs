@@ -33,7 +33,7 @@ namespace CommunicationProtocol.WpfApp
             DataBitsCollection = new ObservableCollection<int> { 5, 6, 7, 8 };
             StopBitsCollection = new ObservableCollection<StopBits>() { StopBits.None, StopBits.One, StopBits.OnePointFive, StopBits.Two };
         }
-        private ObservableCollection<string> GetPortNameCollection()
+        public ObservableCollection<string> GetPortNameCollection()
         {
             var coms = SerialPort.GetPortNames();
             return new ObservableCollection<string>(coms);

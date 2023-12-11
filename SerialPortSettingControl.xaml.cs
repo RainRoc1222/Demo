@@ -20,8 +20,6 @@ namespace CommunicationProtocol.WpfApp
     /// </summary>
     public partial class SerialPortSettingControl : UserControl
     {
-
-
         public CollectionSettings CollectionSettings
         {
             get { return (CollectionSettings)GetValue(CollectionSettingsProperty); }
@@ -53,6 +51,11 @@ namespace CommunicationProtocol.WpfApp
         {
             AppSettingsMgt.AppSettings.SerialPortSettings = SelectedSettings;
             AppSettingsMgt.Save();
+        }
+
+        private void Refresh_Click(object sender, RoutedEventArgs e)
+        {
+            CollectionSettings.PortNameCollection = CollectionSettings.GetPortNameCollection();
         }
     }
 }

@@ -15,12 +15,12 @@
             </Style>
         </UniformGrid.Resources>
         <StackPanel VerticalAlignment="Top">
-            <Button Content="Connect" Click="Connect" IsEnabled="{c:Binding !IsEnabled,ElementName=disconnectButton, FalseToVisibility=Collapsed}"/>
-            <Button Content="Disconnect" Click="Disconnect" Margin="0,15,0,0" x:Name="disconnectButton" IsEnabled="{Binding RelativeSource={RelativeSource AncestorType=UserControl},Path= IsRunning}"/>
+            <Button Content="Connect" Click="Connect_Click" IsEnabled="{c:Binding !IsEnabled,ElementName=disconnectButton, FalseToVisibility=Collapsed}"/>
+            <Button Content="Disconnect" Click="Disconnect_Click" Margin="0,15,0,0" x:Name="disconnectButton" IsEnabled="{Binding RelativeSource={RelativeSource AncestorType=UserControl},Path= IsRunning}"/>
         </StackPanel>
         <StackPanel VerticalAlignment="Bottom">
-            <Button  VerticalAlignment="Bottom" Margin="0,0,0,15" Content="Clear" Click="ClearMessage" />
-            <Button  Margin="10,0"  Content="Send" Click="SendMessage" IsEnabled="{Binding RelativeSource={RelativeSource AncestorType=UserControl},Path= IsConnected}"/>
+            <Button  VerticalAlignment="Bottom" Margin="0,0,0,15" Content="Clear" Click="ClearMessage_Click" />
+            <Button  Margin="10,0"  Content="Send" Click="SendMessage_Click" IsEnabled="{Binding RelativeSource={RelativeSource AncestorType=UserControl},Path= IsConnected}"/>
         </StackPanel>
     </UniformGrid>
 </UserControl>
