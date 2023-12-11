@@ -35,6 +35,7 @@ Sscom的Server/Client接受到訊息。
 打開AccessPort，選擇PortName、BaudRate、Parity、DataBits、StopBits，並開啟通訊
 <image src="https://github.com/RainRoc1222/Demo/blob/sub_Rain/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8A/SerialPort/SerialPort_5.png"/>
   <image src="https://github.com/RainRoc1222/Demo/blob/sub_Rain/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8A/SerialPort/SerialPort_6.png"/>
+    <image src="https://github.com/RainRoc1222/Demo/blob/sub_Rain/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8A/SerialPort/SerialPort_12.png"/>
 輸入預傳送的訊息，並按下Send。    
 <image src="https://github.com/RainRoc1222/Demo/blob/sub_Rain/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8A/SerialPort/SerialPort_7.png"/>
 AccessPort接受到訊息。
