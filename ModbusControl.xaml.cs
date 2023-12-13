@@ -31,7 +31,13 @@ namespace CommunicationProtocol.WpfApp
         public CollectionSettings CollectionSettings => CollectionSettings.Instance;
         public event PropertyChangedEventHandler PropertyChanged;
 
-
+        private void OnSelectedIndexChanged()
+        {
+            if (ModbusController != null)
+            {
+                ModbusController.SelectedIndex = SelectedIndex;
+            }
+        }
         public ModbusControl()
         {
             InitializeComponent();
@@ -71,12 +77,22 @@ namespace CommunicationProtocol.WpfApp
                     StopBits = SelectedSettings.StopBits,
                     DataBits = SelectedSettings.DataBits,
                 };
-                ModbusController = new ModbusController(serialPort, 1);
+                ModbusController = new ModbusController(serialPort, 1)
+                {
+                    Signals = Signals
+                };
+                ModbusController.ReceiveData -= ModbusController_ReceiveData;
+                ModbusController.ReceiveData += ModbusController_ReceiveData;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
             }
+        }
+
+        private void ModbusController_ReceiveData(object sender, ObservableCollection<Signal> e)
+        {
+            Signals = e;
         }
     }
 }

@@ -52,7 +52,7 @@ namespace CommunicationProtocol.WpfApp.Serail_Port
 
         public void Disconnect()
         {
-            SerialPort.Close();
+            SerialPort?.Close();
             IsConnected = false;
         }
 
