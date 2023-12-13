@@ -24,24 +24,28 @@ Sscom的Server/Client接受到訊息。
 <image src="https://github.com/RainRoc1222/Demo/blob/sub_Rain/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8A/TCP/TCP_8.png"/>
 
 <h2>SerialPort</h2>
-選擇PortName、BaudRate、Parity、DataBits、StopBits，並按下Save儲存。  
-<image src=""/>
-按下Connect開啟通訊。  
-<image src=""/>
 打開Virtual Serial Port Driver，建立虛擬COM Port。   
-<image src=""/>
+<image src="https://github.com/RainRoc1222/Demo/blob/sub_Rain/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8A/SerialPort/SerialPort_1.png"/>
+按下Refresh按鈕，取目前可使用的通訊埠
+<image src="https://github.com/RainRoc1222/Demo/blob/sub_Rain/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8A/SerialPort/SerialPort_2.png"/>
+選擇PortName、BaudRate、Parity、DataBits、StopBits，並按下Save儲存。  
+<image src="https://github.com/RainRoc1222/Demo/blob/sub_Rain/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8A/SerialPort/SerialPort_3.png"/>
+按下Connect開啟通訊。  
+<image src="https://github.com/RainRoc1222/Demo/blob/sub_Rain/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8A/SerialPort/SerialPort_4.png"/>
 打開AccessPort，選擇PortName、BaudRate、Parity、DataBits、StopBits，並開啟通訊
-<image src=""/>
+<image src="https://github.com/RainRoc1222/Demo/blob/sub_Rain/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8A/SerialPort/SerialPort_5.png"/>
+  <image src="https://github.com/RainRoc1222/Demo/blob/sub_Rain/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8A/SerialPort/SerialPort_6.png"/>
+    <image src="https://github.com/RainRoc1222/Demo/blob/sub_Rain/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8A/SerialPort/SerialPort_12.png"/>
 輸入預傳送的訊息，並按下Send。    
-<image src=""/>
+<image src="https://github.com/RainRoc1222/Demo/blob/sub_Rain/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8A/SerialPort/SerialPort_7.png"/>
 AccessPort接受到訊息。
-<image src=""/>
+<image src="https://github.com/RainRoc1222/Demo/blob/sub_Rain/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8A/SerialPort/SerialPort_8.png"/>
 在AccessPort中輸入預傳送的訊息(需要有開頭碼及結尾碼)，並按下Send。
-<image src=""/>
+<image src="https://github.com/RainRoc1222/Demo/blob/sub_Rain/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8A/SerialPort/SerialPort_9.png"/>
 應用程式接收到AccessPort回傳訊息。 
-<image src=""/>  
+<image src="https://github.com/RainRoc1222/Demo/blob/sub_Rain/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8A/SerialPort/SerialPort_10.png"/>  
 按下Clear清空畫面上的訊息。   
-<image src=""/>
+<image src="https://github.com/RainRoc1222/Demo/blob/sub_Rain/%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8A/SerialPort/SerialPort_11.png"/>
 
 <h2>Modbus</h2>
 選擇PortName、BaudRate、Parity、DataBits、StopBits，並按下Save儲存。  
