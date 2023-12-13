@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CommunicationProtocol.WpfApp"
              mc:Ignorable="d" 
+             Unloaded="UserControl_Unloaded"
              xmlns:c="clr-namespace:CalcBinding;assembly=CalcBinding"
              d:DesignHeight="450" d:DesignWidth="300">
     <UniformGrid Rows="2" Grid.Column="2">

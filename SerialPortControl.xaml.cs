@@ -47,6 +47,7 @@ namespace CommunicationProtocol.WpfApp
         {
             TextLogs.AppendText(e);
             TextLogs.ScrollToEnd();
+            Message = string.Empty; 
         }
 
         private void SerialPortController_ReceiveData(object sender, byte[] e)
@@ -80,5 +81,6 @@ namespace CommunicationProtocol.WpfApp
             SerialPortController.ReceiveData -= SerialPortController_ReceiveData;
             SerialPortController.ReceiveData += SerialPortController_ReceiveData;
         }
+
     }
 }

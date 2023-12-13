@@ -115,7 +115,7 @@ namespace CommunicationProtocol.WpfApp.Modbus
         public void SendMessage(string message)
         {
         }
-
+ 
         public void SendMessage(ushort number, ushort value)
         {
             mySerialMaster?.WriteSingleRegister((byte)mySlaveId,number,value);

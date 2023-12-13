@@ -1,10 +1,12 @@
 ﻿using CommunicationProtocol.WpfApp.Modbus;
 using CommunicationProtocol.WpfApp.Serail_Port;
+using CommunicationProtocol.WpfApp.Tcp;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -22,9 +24,8 @@ namespace CommunicationProtocol.WpfApp
     /// <summary>
     /// ButtonControl.xaml 的互動邏輯
     /// </summary>
-    public partial class ButtonControl : UserControl,INotifyPropertyChanged
+    public partial class ButtonControl : UserControl, INotifyPropertyChanged
     {
-
 
         public int SelectedIndex
         {
@@ -157,6 +158,11 @@ namespace CommunicationProtocol.WpfApp
                     Send?.Invoke(this, message);
                 }
             }
+        }
+
+        private void UserControl_Unloaded(object sender, RoutedEventArgs e)
+        {
+            Controller?.Disconnect();
         }
     }
 }

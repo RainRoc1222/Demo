@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommunicationProtocol.WpfApp.Tcp;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -14,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static CommunicationProtocol.WpfApp.TcpControl;
 
 namespace CommunicationProtocol.WpfApp
 {
@@ -25,6 +27,7 @@ namespace CommunicationProtocol.WpfApp
         public TcpController TcpController { get; set; }
         public TcpSettings TcpSettings { get; set; }
         public string Message { get; set; }
+        private TcpType myTcpType;
         public event PropertyChangedEventHandler PropertyChanged;
 
         public TcpControl()
@@ -90,19 +93,19 @@ namespace CommunicationProtocol.WpfApp
 
         private void ChangeTcpController(RadioButton ratioButton)
         {
-            if (TcpController != null) TcpController.Disconnect();
+            TcpController?.Disconnect();
 
             if (TcpSettings == null) TcpSettings = AppSettingsMgt.AppSettings.TcpSettings;
 
-                switch (ratioButton.Content)
-                {
-                    case "Server":
-                        TcpController = new TcpController(new MyTcpServer(TcpSettings));
-                        break;
-                    default:
-                        TcpController = new TcpController(new MyTcpClient(TcpSettings));
-                        break;
-                }
+            switch (ratioButton.Content)
+            {
+                case "Server":
+                    TcpController = new TcpController(new MyTcpServer(TcpSettings));
+                    break;
+                default:
+                    TcpController = new TcpController(new MyTcpClient(TcpSettings));
+                    break;
+            }
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -114,5 +117,7 @@ namespace CommunicationProtocol.WpfApp
             AppSettingsMgt.AppSettings.TcpSettings = TcpSettings;
             AppSettingsMgt.Save();
         }
+
+
     }
 }
