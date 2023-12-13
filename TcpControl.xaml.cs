@@ -29,6 +29,8 @@ namespace CommunicationProtocol.WpfApp
         public TcpSettings TcpSettings { get; set; }
         private TcpType myTcpType;
         public string Message { get; set; }
+        public bool IsRunning { get; set; }
+        public bool IsConnected { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
 
         public TcpControl()

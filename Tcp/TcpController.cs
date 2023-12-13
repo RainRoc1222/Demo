@@ -11,7 +11,7 @@ namespace CommunicationProtocol.WpfApp
 {
     public class TcpController : IController, INotifyPropertyChanged
     {
-        public ITcpWrapper myTcp;
+        private ITcpWrapper myTcp;
         public bool IsConnected { get; set; }
         public bool IsRunning { get; set; }
 
@@ -19,6 +19,7 @@ namespace CommunicationProtocol.WpfApp
         public TcpController(ITcpWrapper tcp)
         {
             myTcp = tcp;
+            myTcp.ConnectionChagned -= ConnectionChagned;
             myTcp.ConnectionChagned += ConnectionChagned;
         }
 
@@ -34,16 +35,17 @@ namespace CommunicationProtocol.WpfApp
         public void Connect()
         {
             myTcp.Connect();
-            IsRunning = true;
+            if(myTcp is MyTcpServer)
+            {
+                IsRunning = true;
+
+            }
         }
         public void Disconnect()
         {
             myTcp.Disconnect();
             IsRunning = false;
-            if (myTcp is MyTcpClient)
-            {
-                IsConnected = false;
-            }
+            if (myTcp is MyTcpClient) IsConnected = false;
         }
         public string ReadMessage()
         {

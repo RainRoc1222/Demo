@@ -27,7 +27,7 @@ namespace CommunicationProtocol.WpfApp
     public partial class ButtonControl : UserControl, INotifyPropertyChanged
     {
 
-     public SerialPortSettings SelectedSettings
+        public SerialPortSettings SelectedSettings
         {
             get { return (SerialPortSettings)GetValue(SelectedSettingsProperty); }
             set { SetValue(SelectedSettingsProperty, value); }

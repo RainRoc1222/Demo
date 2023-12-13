@@ -1,15 +1,18 @@
 ﻿using CommunicationProtocol.WpfApp.Tcp;
 using System;
 using System.ComponentModel;
+using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace CommunicationProtocol.WpfApp
 {
-    public class MyTcpClient : ITcpWrapper,INotifyPropertyChanging
+    public class MyTcpClient : ITcpWrapper, INotifyPropertyChanging
     {
         public TcpClient myTcpClient;
+        private bool myIsConnected;
         public string IpAddress { get; private set; }
         public int Port { get; private set; }
         public event EventHandler<bool> ConnectionChagned;
@@ -23,6 +26,8 @@ namespace CommunicationProtocol.WpfApp
 
         private void Check()
         {
+            myIsConnected = true;
+            ConnectionChagned.Invoke(this, myIsConnected);
             myTcpClient.Client.Poll(0, SelectMode.SelectRead);
             byte[] testRecByte = new byte[1];
             if (myTcpClient.Client.Receive(testRecByte, SocketFlags.Peek) == 0)
@@ -34,20 +39,14 @@ namespace CommunicationProtocol.WpfApp
         {
             Task.Run(() =>
             {
-                while (true)
+                while (myIsConnected)
                 {
-                    try
-                    {
-                        Check();
-                    }
-                    catch (Exception)
-                    {
-                    }
-
-                    Task.Delay(10);
+                    Check();
+                    Task.Delay(150);
                 }
             });
         }
+
 
         public void Connect()
         {
@@ -55,12 +54,13 @@ namespace CommunicationProtocol.WpfApp
             {
                 myTcpClient = new TcpClient();
                 myTcpClient.Connect(IpAddress, Port);
-                ConnectionChagned.Invoke(this, true);
+                myIsConnected = true;
                 CheckConnection();
             }
             catch (Exception ex)
             {
-                ConnectionChagned.Invoke(this, false);
+                myIsConnected = false;
+                ConnectionChagned.Invoke(this, myIsConnected);
             }
         }
 
@@ -70,11 +70,12 @@ namespace CommunicationProtocol.WpfApp
             {
                 myTcpClient.GetStream().Close();
                 myTcpClient.Close();
+                myIsConnected = false;
             }
             catch (Exception ex)
             {
             }
-            ConnectionChagned.Invoke(this, false);
+
         }
 
         public void SendMessage(string message)
@@ -87,7 +88,8 @@ namespace CommunicationProtocol.WpfApp
             }
             catch (Exception ex)
             {
-                ConnectionChagned.Invoke(this, false);
+                myIsConnected = false;
+                ConnectionChagned.Invoke(this, myIsConnected);
             }
         }
 

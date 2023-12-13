@@ -33,6 +33,7 @@ namespace CommunicationProtocol.WpfApp
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.ToString());
             }
         }
 
@@ -42,10 +43,10 @@ namespace CommunicationProtocol.WpfApp
             {
                 myTcpListener.Stop();
                 RemoveClient();
-                ConnectionChagned.Invoke(this, false);
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.ToString());
             }
         }
         private void RemoveClient()
@@ -55,6 +56,7 @@ namespace CommunicationProtocol.WpfApp
                 myTcpClient.GetStream().Close();
                 myTcpClient.Close();
                 myTcpClient = null;
+                ConnectionChagned.Invoke(this, false);
             }
         }
 
@@ -85,12 +87,16 @@ namespace CommunicationProtocol.WpfApp
             {
                 myTcpClient.Client.Poll(0, SelectMode.SelectRead);
                 byte[] testRecByte = new byte[1];
-                if (myTcpClient.Client.Receive(testRecByte, SocketFlags.Peek) == 0) RemoveClient();
-                ConnectionChagned.Invoke(this, false);
+                if (myTcpClient.Client.Receive(testRecByte, SocketFlags.Peek) == 0)
+                {
+                    RemoveClient();
+                    ConnectionChagned.Invoke(this, false);
+                }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 ConnectionChagned?.Invoke(this, false);
+                Console.WriteLine(ex.ToString());
             }
         }
 
