@@ -27,6 +27,17 @@ namespace CommunicationProtocol.WpfApp
     public partial class ButtonControl : UserControl, INotifyPropertyChanged
     {
 
+     public SerialPortSettings SelectedSettings
+        {
+            get { return (SerialPortSettings)GetValue(SelectedSettingsProperty); }
+            set { SetValue(SelectedSettingsProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for SelectedSettings.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty SelectedSettingsProperty =
+            DependencyProperty.Register("SelectedSettings", typeof(SerialPortSettings), typeof(ButtonControl), new PropertyMetadata());
+
+
         public int SelectedIndex
         {
             get { return (int)GetValue(SelectedIndexProperty); }

@@ -76,6 +76,7 @@ namespace CommunicationProtocol.WpfApp
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.ToString());
             }
         }
         private void Check()
@@ -84,7 +85,8 @@ namespace CommunicationProtocol.WpfApp
             {
                 myTcpClient.Client.Poll(0, SelectMode.SelectRead);
                 byte[] testRecByte = new byte[1];
-                if (myTcpClient.Client.Receive(testRecByte, SocketFlags.Peek) == 0) Disconnect();
+                if (myTcpClient.Client.Receive(testRecByte, SocketFlags.Peek) == 0) RemoveClient();
+                ConnectionChagned.Invoke(this, false);
             }
             catch (Exception)
             {

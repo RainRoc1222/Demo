@@ -28,12 +28,20 @@ namespace CommunicationProtocol.WpfApp.Modbus
         public event EventHandler<ObservableCollection<Signal>> ReceiveData;
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public ModbusController(SerialPort serialPort, int slaveId)
+
+        public ModbusController(SerialPortSettings settings,int slaveId)
         {
             try
             {
                 mySlaveId = slaveId;
-                SerialPort = serialPort;
+                SerialPort = new SerialPort()
+                {
+                    PortName = settings.PortName,
+                    BaudRate = settings.BaudRate,
+                    Parity = settings.Parity,
+                    StopBits = settings.StopBits,
+                    DataBits = settings.DataBits,
+                };
 
                 var factory = new ModbusFactory();
                 mySerialMaster = factory.CreateRtuMaster(SerialPort);
@@ -42,7 +50,6 @@ namespace CommunicationProtocol.WpfApp.Modbus
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
 
         public void Connect()

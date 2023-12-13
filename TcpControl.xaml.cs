@@ -1,4 +1,5 @@
-﻿using CommunicationProtocol.WpfApp.Tcp;
+﻿using CommunicationProtocol.WpfApp.Modbus;
+using CommunicationProtocol.WpfApp.Tcp;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -26,6 +27,7 @@ namespace CommunicationProtocol.WpfApp
     {
         public TcpController TcpController { get; set; }
         public TcpSettings TcpSettings { get; set; }
+        private TcpType myTcpType;
         public string Message { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -72,33 +74,58 @@ namespace CommunicationProtocol.WpfApp
 
         private void UpdateUI()
         {
-            var message = $"{DateTime.Now:yyyy/MM/dd HH:mm:ss}     IN:        {TcpController.ReadMessage()}{Environment.NewLine}";
-
-            Dispatcher.InvokeAsync(new Action(() =>
+            var receiveMessage = TcpController.ReadMessage();
+            if (!string.IsNullOrWhiteSpace(receiveMessage))
             {
-                if (TextLogs.Text.Length > 30000)
-                {
-                    TextLogs.Clear();
-                }
+                var message = $"{DateTime.Now:yyyy/MM/dd HH:mm:ss}     IN:        {receiveMessage}{Environment.NewLine}";
 
-                TextLogs.AppendText(message);
-                TextLogs.ScrollToEnd();
-            }));
+                Dispatcher.InvokeAsync(new Action(() =>
+                {
+                    if (TextLogs.Text.Length > 30000)
+                    {
+                        TextLogs.Clear();
+                    }
+
+                    TextLogs.AppendText(message);
+                    TextLogs.ScrollToEnd();
+                }));
+            }
         }
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
             ChangeTcpController((RadioButton)sender);
         }
 
-        private void ChangeTcpController(RadioButton ratioButton)
+        private void ChangeTcpController(RadioButton radioButton)
         {
             TcpController?.Disconnect();
-
             if (TcpSettings == null) TcpSettings = AppSettingsMgt.AppSettings.TcpSettings;
+            myTcpType = radioButton.Content.ToString() == "Server" ? TcpType.Server : TcpType.Client;
+            InitializeController();
+        }
 
-            switch (ratioButton.Content)
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            TcpSettings = AppSettingsMgt.AppSettings.TcpSettings;
+            TcpSettings.PropertyChanged -= TcpSettings_PropertyChanged;
+            TcpSettings.PropertyChanged += TcpSettings_PropertyChanged;
+        }
+
+        private void TcpSettings_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            InitializeController();
+        }
+
+        private void Save_Click(object sender, RoutedEventArgs e)
+        {
+            AppSettingsMgt.AppSettings.TcpSettings = TcpSettings;
+            AppSettingsMgt.Save();
+        }
+        private void InitializeController()
+        {
+            switch (myTcpType)
             {
-                case "Server":
+                case TcpType.Server:
                     TcpController = new TcpController(new MyTcpServer(TcpSettings));
                     break;
                 default:
@@ -106,17 +133,5 @@ namespace CommunicationProtocol.WpfApp
                     break;
             }
         }
-
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
-        {
-            TcpSettings = AppSettingsMgt.AppSettings.TcpSettings;
-        }
-        private void Save_Click(object sender, RoutedEventArgs e)
-        {
-            AppSettingsMgt.AppSettings.TcpSettings = TcpSettings;
-            AppSettingsMgt.Save();
-        }
-
-
     }
 }

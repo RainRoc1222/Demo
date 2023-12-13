@@ -40,6 +40,7 @@
                     </DockPanel>
                 </GroupBox>
                 <local:ButtonControl Grid.Column="2" x:Name="ButtonControl"
+                                     SelectedSettings="{Binding SelectedSettings}"
                                      Message="{Binding Message}" Controller="{Binding SerialPortController}" 
                                      IsRunning="{Binding SerialPortController.IsConnected}" IsConnected="{Binding SerialPortController.IsConnected}"
                                      DataContext="{Binding Path=DataContext}"/>

@@ -25,7 +25,7 @@ namespace CommunicationProtocol.WpfApp
     public partial class SerialPortControl : UserControl, INotifyPropertyChanged
     {
         public CollectionSettings CollectionSettings => CollectionSettings.Instance;
-        public string Message { get; set; } 
+        public string Message { get; set; }
         public string ReceiveMessage { get; set; }
         public SerialPortSettings SelectedSettings { get; set; }
         public SerialPortController SerialPortController { get; set; }
@@ -47,7 +47,7 @@ namespace CommunicationProtocol.WpfApp
         {
             TextLogs.AppendText(e);
             TextLogs.ScrollToEnd();
-            Message = string.Empty; 
+            Message = string.Empty;
         }
 
         private void SerialPortController_ReceiveData(object sender, byte[] e)
@@ -56,6 +56,7 @@ namespace CommunicationProtocol.WpfApp
             UpdateUI();
         }
 
+        //接收資料與更新 UI 介面是不同執行緒，因此需要用委派來更新畫面
         private void UpdateUI()
         {
             var message = $"{DateTime.Now:yyyy/MM/dd HH:mm:ss}     IN:        {ReceiveMessage}{Environment.NewLine}";
@@ -77,6 +78,19 @@ namespace CommunicationProtocol.WpfApp
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             SelectedSettings = AppSettingsMgt.AppSettings.SerialPortSettings;
+            SelectedSettings.PropertyChanged -= SelectedSettings_PropertyChanged;
+            SelectedSettings.PropertyChanged += SelectedSettings_PropertyChanged;
+            InitializeController();
+        }
+
+        private void SelectedSettings_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            InitializeController();
+        }
+
+        private void InitializeController()
+        {
+            SerialPortController?.Disconnect();
             SerialPortController = new SerialPortController(SelectedSettings);
             SerialPortController.ReceiveData -= SerialPortController_ReceiveData;
             SerialPortController.ReceiveData += SerialPortController_ReceiveData;

@@ -1,4 +1,5 @@
 ﻿using CommunicationProtocol.WpfApp.Modbus;
+using CommunicationProtocol.WpfApp.Serail_Port;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -38,6 +39,7 @@ namespace CommunicationProtocol.WpfApp
                 ModbusController.SelectedIndex = SelectedIndex;
             }
         }
+
         public ModbusControl()
         {
             InitializeComponent();
@@ -69,20 +71,9 @@ namespace CommunicationProtocol.WpfApp
             try
             {
                 SelectedSettings = AppSettingsMgt.AppSettings.ModbusSettings;
-                var serialPort = new SerialPort()
-                {
-                    PortName = SelectedSettings.PortName,
-                    BaudRate = SelectedSettings.BaudRate,
-                    Parity = SelectedSettings.Parity,
-                    StopBits = SelectedSettings.StopBits,
-                    DataBits = SelectedSettings.DataBits,
-                };
-                ModbusController = new ModbusController(serialPort, 1)
-                {
-                    Signals = Signals
-                };
-                ModbusController.ReceiveData -= ModbusController_ReceiveData;
-                ModbusController.ReceiveData += ModbusController_ReceiveData;
+                SelectedSettings.PropertyChanged -= SelectedSettings_PropertyChanged;
+                SelectedSettings.PropertyChanged += SelectedSettings_PropertyChanged;
+                InitializeController();
             }
             catch (Exception ex)
             {
@@ -90,9 +81,25 @@ namespace CommunicationProtocol.WpfApp
             }
         }
 
+        private void SelectedSettings_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            InitializeController();
+        }
+
         private void ModbusController_ReceiveData(object sender, ObservableCollection<Signal> e)
         {
             Signals = e;
+        }
+
+        private void InitializeController()
+        {
+            ModbusController?.Disconnect();
+            ModbusController = new ModbusController(SelectedSettings, 1)
+            {
+                Signals = Signals
+            };
+            ModbusController.ReceiveData -= ModbusController_ReceiveData;
+            ModbusController.ReceiveData += ModbusController_ReceiveData;
         }
     }
 }

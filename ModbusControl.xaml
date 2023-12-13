@@ -88,6 +88,7 @@
                     </TabControl>
                 </GroupBox>
                 <local:ButtonControl Grid.Column="2" x:Name="ButtonControl"
+                                     SelectedSettings="{Binding SelectedSettings}"
                                Message="{Binding Message}" Controller="{Binding ModbusController}" 
                                IsRunning="{Binding ModbusController.IsConnected}" IsConnected="{Binding ModbusController.IsConnected}"
                                Signals="{Binding Signals}" SelectedIndex="{Binding SelectedIndex}"

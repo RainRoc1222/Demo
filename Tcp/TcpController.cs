@@ -25,7 +25,10 @@ namespace CommunicationProtocol.WpfApp
         private void ConnectionChagned(object sender, bool e)
         {
             IsConnected = e;
-            IsRunning = e;
+            if (sender is MyTcpClient)
+            {
+                IsRunning = e;
+            }
         }
 
         public void Connect()
@@ -37,7 +40,7 @@ namespace CommunicationProtocol.WpfApp
         {
             myTcp.Disconnect();
             IsRunning = false;
-            if(myTcp is MyTcpClient)
+            if (myTcp is MyTcpClient)
             {
                 IsConnected = false;
             }

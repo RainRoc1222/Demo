@@ -123,6 +123,7 @@
     </Compile>
     <Compile Include="Tcp\TcpController.cs" />
     <Compile Include="Tcp\MyTcpClient.cs" />
+    <Compile Include="Tcp\TcpType.cs" />
     <Page Include="ButtonControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
